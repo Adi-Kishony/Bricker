@@ -2,6 +2,7 @@
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 import danogl.GameManager;
 import danogl.GameObject;
+import danogl.collisions.Layer;
 import danogl.gui.ImageReader;
 import danogl.gui.SoundReader;
 import danogl.gui.UserInputListener;
@@ -20,9 +21,9 @@ public class BouncingBallGameManager extends GameManager{
         GameObject leftWall = new GameObject(Vector2.ZERO, new Vector2(10,windowDimensions.y()),null);
         GameObject rightWall = new GameObject(new Vector2(windowDimensions.x(),0), new Vector2(10,windowDimensions.y()),null);
         GameObject topWall = new GameObject(Vector2.ZERO, new Vector2(windowDimensions.x(),10),null);
-        gameObjects().addGameObject(leftWall);
-        gameObjects().addGameObject(rightWall);
-        gameObjects().addGameObject(topWall);
+        gameObjects().addGameObject(leftWall,Layer.STATIC_OBJECTS);
+        gameObjects().addGameObject(rightWall,Layer.STATIC_OBJECTS);
+        gameObjects().addGameObject(topWall,Layer.STATIC_OBJECTS);
     }
 
     @Override
@@ -34,7 +35,8 @@ public class BouncingBallGameManager extends GameManager{
         Renderable bgImage = imageReader.readImage("assets/DARK_BG2_small.jpeg", false);
         GameObject background =
                 new GameObject(Vector2.ZERO, new Vector2(windowDimensions.x(), windowDimensions.y()), bgImage);
-        gameObjects().addGameObject(background);
+        //background.setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
+        gameObjects().addGameObject(background, Layer.BACKGROUND);
 
         //create ball
         Renderable ballImage = imageReader.readImage("assets/ball.png", true);
