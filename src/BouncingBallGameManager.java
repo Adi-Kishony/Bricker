@@ -27,11 +27,18 @@ public class BouncingBallGameManager extends GameManager{
 
     @Override
     public void initializeGame(ImageReader imageReader, SoundReader soundReader, UserInputListener inputListener, WindowController windowController) {
-        //create ball
         super.initializeGame(imageReader, soundReader, inputListener, windowController);
+        Vector2 windowDimensions = windowController.getWindowDimensions();
+
+        // create background
+        Renderable bgImage = imageReader.readImage("assets/DARK_BG2_small.jpeg", false);
+        GameObject background =
+                new GameObject(Vector2.ZERO, new Vector2(windowDimensions.x(), windowDimensions.y()), bgImage);
+        gameObjects().addGameObject(background);
+
+        //create ball
         Renderable ballImage = imageReader.readImage("assets/ball.png", true);
         GameObject ball = new Ball(Vector2.ZERO, new Vector2(50,50), ballImage);
-        Vector2 windowDimensions = windowController.getWindowDimensions();
         ball.setCenter(windowDimensions.mult(0.5f));
         ball.setVelocity(Vector2.DOWN.mult(200));
         gameObjects().addGameObject(ball);
@@ -44,7 +51,10 @@ public class BouncingBallGameManager extends GameManager{
             paddle.setCenter(new Vector2(windowDimensions.x()/2,paddleHeights[i]));
             gameObjects().addGameObject(paddle);
         }
+
+        // create walls
         createWalls(windowDimensions);
+
     }
 
     public static void main(String[] args) {
