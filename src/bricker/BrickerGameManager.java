@@ -1,15 +1,16 @@
+package bricker;
 
-import brick_strategies.BasicCollisionStrategy;
-import brick_strategies.CollisionStrategy;
+import bricker.brick_strategies.BasicCollisionStrategy;
+import bricker.brick_strategies.CollisionStrategy;
+import bricker.gameobjects.Ball;
+import bricker.gameobjects.Brick;
+import bricker.gameobjects.Paddle;
 import danogl.GameManager;
 import danogl.GameObject;
 import danogl.collisions.Layer;
 import danogl.gui.*;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
-import gameobjects.Ball;
-import gameobjects.Brick;
-import gameobjects.Paddle;
 
 import java.util.Random;
 
@@ -64,10 +65,10 @@ public class BrickerGameManager extends GameManager{
     }
 
     private void createBrick(Renderable brickImage, Vector2 windowDimensions) {
-        CollisionStrategy collisionStrategy = new BasicCollisionStrategy();
+        CollisionStrategy collisionStrategy = new BasicCollisionStrategy(this);
         GameObject brick =
                 new Brick(Vector2.ZERO, new Vector2(windowDimensions.x(), BRICK_HEIGHT), brickImage, collisionStrategy);
-        gameObjects().addGameObject(brick);
+        gameObjects().addGameObject(brick, Layer.STATIC_OBJECTS);
     }
 
     @Override
@@ -93,17 +94,28 @@ public class BrickerGameManager extends GameManager{
 
         // create walls
         createWalls(windowDimensions);
+
+        //create brick
         Renderable  brickImage = imageReader.readImage("assets/brick.png", false);
         createBrick(brickImage, windowDimensions);
 
     }
 
-//    public void removeGameObject(GameObject obj, Layer layer){
-//        gameObjects().removeGameObject(obj, layer);
-//    }
 
-    public void removeGameObject(GameObject obj){
+    public void removeGameObject(GameObject obj, int layer){
+        gameObjects().removeGameObject(obj,layer);
+    }
+
+    public void removeGameObject(GameObject obj) {
         gameObjects().removeGameObject(obj);
+    }
+
+    public void addGameObject(GameObject obj, int layer){
+        gameObjects().addGameObject(obj, layer);
+    }
+
+    public void addGameObject(GameObject obj){
+        gameObjects().addGameObject(obj);
     }
 
     public static void main(String[] args) {

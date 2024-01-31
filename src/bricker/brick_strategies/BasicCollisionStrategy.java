@@ -1,7 +1,8 @@
-package brick_strategies;
+package bricker.brick_strategies;
 
-import danogl.GameManager;
+import bricker.BrickerGameManager;
 import danogl.GameObject;
+import danogl.collisions.Layer;
 
 public class BasicCollisionStrategy implements CollisionStrategy {
     private BrickerGameManager brickerGameManager;
@@ -12,6 +13,6 @@ public class BasicCollisionStrategy implements CollisionStrategy {
 
     @Override
     public void onCollision(GameObject obj1, GameObject obj2) {
-        System.out.println("Collision with brick detected");
+        brickerGameManager.removeGameObject(obj1, Layer.STATIC_OBJECTS);
     }
 }
