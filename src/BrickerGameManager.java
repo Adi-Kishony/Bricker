@@ -1,5 +1,4 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
 import brick_strategies.BasicCollisionStrategy;
 import brick_strategies.CollisionStrategy;
 import danogl.GameManager;
@@ -14,7 +13,7 @@ import gameobjects.Paddle;
 
 import java.util.Random;
 
-public class BouncingBallGameManager extends GameManager{
+public class BrickerGameManager extends GameManager{
 
     private static final float BALL_SPEED = 250;
     private static final int BORDER_WIDTH = 10;
@@ -24,7 +23,7 @@ public class BouncingBallGameManager extends GameManager{
     private static final int DIST_FROM_EDGE_OF_DISPLAY = 30;
     private static  final  int BRICK_HEIGHT = 15;
 
-    public BouncingBallGameManager(String windowTitle, Vector2 windowDimensions){
+    public BrickerGameManager(String windowTitle, Vector2 windowDimensions){
         super(windowTitle, windowDimensions);
     }
 
@@ -99,10 +98,19 @@ public class BouncingBallGameManager extends GameManager{
 
     }
 
+//    public void removeGameObject(GameObject obj, Layer layer){
+//        gameObjects().removeGameObject(obj, layer);
+//    }
+
+    public void removeGameObject(GameObject obj){
+        gameObjects().removeGameObject(obj);
+    }
 
     public static void main(String[] args) {
-        BouncingBallGameManager gameManager = new BouncingBallGameManager("bouncing ball", new Vector2(500,500));
+        BrickerGameManager gameManager = new BrickerGameManager("Bricker", new Vector2(500,500));
         gameManager.run();
+
+
 
     }
 }
