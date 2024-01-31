@@ -1,5 +1,7 @@
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import brick_strategies.BasicCollisionStrategy;
+import brick_strategies.CollisionStrategy;
 import danogl.GameManager;
 import danogl.GameObject;
 import danogl.collisions.Layer;
@@ -7,6 +9,7 @@ import danogl.gui.*;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 import gameobjects.Ball;
+import gameobjects.Brick;
 import gameobjects.Paddle;
 
 import java.util.Random;
@@ -19,7 +22,7 @@ public class BouncingBallGameManager extends GameManager{
     private static final int PADDLE_HEIGHT = 20;
     private static final int BALL_RADIUS = 35;
     private static final int DIST_FROM_EDGE_OF_DISPLAY = 30;
-
+    private static  final  int BRICK_HEIGHT = 15;
 
     public BouncingBallGameManager(String windowTitle, Vector2 windowDimensions){
         super(windowTitle, windowDimensions);
@@ -61,11 +64,11 @@ public class BouncingBallGameManager extends GameManager{
         gameObjects().addGameObject(userPaddle);
     }
 
-    private void createAIPaddle(Renderable paddleImage, Vector2 windowDimensions) {
-        //crate ai paddles
-        GameObject aiPaddle = new GameObject(Vector2.ZERO, new Vector2(PADDLE_WIDTH, PADDLE_HEIGHT), paddleImage);
-        aiPaddle.setCenter(new Vector2(windowDimensions.x() / 2, DIST_FROM_EDGE_OF_DISPLAY));
-        gameObjects().addGameObject(aiPaddle);
+    private void createBrick(Renderable brickImage, Vector2 windowDimensions) {
+        CollisionStrategy collisionStrategy = new BasicCollisionStrategy();
+        GameObject brick =
+                new Brick(Vector2.ZERO, new Vector2(windowDimensions.x(), BRICK_HEIGHT), brickImage, collisionStrategy);
+        gameObjects().addGameObject(brick);
     }
 
     @Override
@@ -88,12 +91,14 @@ public class BouncingBallGameManager extends GameManager{
         // create user paddle
         Renderable paddleImage = imageReader.readImage("assets/paddle.png",true);
         createUserPaddle(paddleImage, inputListener, windowDimensions);
-        createAIPaddle(paddleImage, windowDimensions);
 
         // create walls
         createWalls(windowDimensions);
+        Renderable  brickImage = imageReader.readImage("assets/brick.png", false);
+        createBrick(brickImage, windowDimensions);
 
     }
+
 
     public static void main(String[] args) {
         BouncingBallGameManager gameManager = new BouncingBallGameManager("bouncing ball", new Vector2(500,500));
