@@ -2,12 +2,16 @@ package gameobjects;
 
 import danogl.GameObject;
 import danogl.collisions.Collision;
+import danogl.gui.Sound;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
 public class Ball extends GameObject {
-    public Ball(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable) {
+    private Sound collisionSound;
+
+    public Ball(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, Sound collisionSound) {
         super(topLeftCorner, dimensions, renderable);
+        this.collisionSound = collisionSound;
         this.collisionCounter = 0;
     }
 
@@ -18,6 +22,7 @@ public class Ball extends GameObject {
         Vector2 newVel = getVelocity().flipped(collision.getNormal());
         setVelocity(newVel);
         collisionCounter++;
+        collisionSound.play();
     }
 
     public int getCollisionCounter() {

@@ -3,13 +3,11 @@
 import danogl.GameManager;
 import danogl.GameObject;
 import danogl.collisions.Layer;
-import danogl.gui.ImageReader;
-import danogl.gui.SoundReader;
-import danogl.gui.UserInputListener;
-import danogl.gui.WindowController;
+import danogl.gui.*;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 import gameobjects.Ball;
+import gameobjects.Paddle;
 
 public class BouncingBallGameManager extends GameManager{
 
@@ -26,8 +24,37 @@ public class BouncingBallGameManager extends GameManager{
         gameObjects().addGameObject(topWall,Layer.STATIC_OBJECTS);
     }
 
+    private void createBall(ImageReader imageReader, SoundReader soundReader, Vector2 windowDimensions){
+        Renderable ballImage = imageReader.readImage("assets/ball.png", true);
+        Sound collisionSound = soundReader.readSound("assets/blop_cut_silenced.wav");
+        GameObject ball = new Ball(Vector2.ZERO, new Vector2(50,50), ballImage, collisionSound);
+        ball.setCenter(windowDimensions.mult(0.5f));
+        ball.setVelocity(Vector2.DOWN.mult(500));
+        gameObjects().addGameObject(ball);
+    }
+
+    private void createUserPaddle(Renderable paddleImage, UserInputListener inputListener, Vector2 windowDimensions){
+        // create user paddle
+        GameObject userPaddle = new Paddle(
+                Vector2.ZERO,
+                new Vector2(200,20),
+                paddleImage,
+                inputListener);
+        userPaddle.setCenter(new Vector2(windowDimensions.x()/2,(int)windowDimensions.y()-30));
+        gameObjects().addGameObject(userPaddle);
+    }
+
+    private void createAIPaddle(Renderable paddleImage, Vector2 windowDimensions) {
+        //crate ai paddles
+        GameObject aiPaddle = new GameObject(Vector2.ZERO, new Vector2(200, 20), paddleImage);
+        aiPaddle.setCenter(new Vector2(windowDimensions.x() / 2, 30));
+        gameObjects().addGameObject(aiPaddle);
+    }
+
     @Override
     public void initializeGame(ImageReader imageReader, SoundReader soundReader, UserInputListener inputListener, WindowController windowController) {
+
+        // Initialization
         super.initializeGame(imageReader, soundReader, inputListener, windowController);
         Vector2 windowDimensions = windowController.getWindowDimensions();
 
@@ -39,20 +66,12 @@ public class BouncingBallGameManager extends GameManager{
         gameObjects().addGameObject(background, Layer.BACKGROUND);
 
         //create ball
-        Renderable ballImage = imageReader.readImage("assets/ball.png", true);
-        GameObject ball = new Ball(Vector2.ZERO, new Vector2(50,50), ballImage);
-        ball.setCenter(windowDimensions.mult(0.5f));
-        ball.setVelocity(Vector2.DOWN.mult(200));
-        gameObjects().addGameObject(ball);
-        //crate paddles
-        int[] paddleHeights = {(int)windowDimensions.y()-30, 30};
-        Renderable paddleImage = imageReader.readImage("assets/paddle.png",true);
+        createBall(imageReader, soundReader, windowDimensions);
 
-        for (int i = 0; i < paddleHeights.length; i++) {
-            GameObject paddle = new GameObject(Vector2.ZERO, new Vector2(200,20), paddleImage);
-            paddle.setCenter(new Vector2(windowDimensions.x()/2,paddleHeights[i]));
-            gameObjects().addGameObject(paddle);
-        }
+        // create user paddle
+        Renderable paddleImage = imageReader.readImage("assets/paddle.png",true);
+        createUserPaddle(paddleImage, inputListener, windowDimensions);
+        createAIPaddle(paddleImage, windowDimensions);
 
         // create walls
         createWalls(windowDimensions);
