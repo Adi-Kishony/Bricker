@@ -22,7 +22,9 @@ public class BrickerGameManager extends GameManager{
     private static final int PADDLE_HEIGHT = 20;
     private static final int BALL_RADIUS = 35;
     private static final int DIST_FROM_EDGE_OF_DISPLAY = 30;
-    private static  final  int BRICK_HEIGHT = 15;
+    private static  final int BRICK_HEIGHT = 15;
+    private static final int NUM_ROWS_OF_BRICKS = 7;
+    private static final int NUM_COLS_OF_BRICKS = 8;
 
     public BrickerGameManager(String windowTitle, Vector2 windowDimensions){
         super(windowTitle, windowDimensions);
@@ -35,6 +37,19 @@ public class BrickerGameManager extends GameManager{
         gameObjects().addGameObject(leftWall,Layer.STATIC_OBJECTS);
         gameObjects().addGameObject(rightWall,Layer.STATIC_OBJECTS);
         gameObjects().addGameObject(topWall,Layer.STATIC_OBJECTS);
+    }
+
+    private void addBricks(Vector2 windowDimensions ,Renderable brickImage, int numRows, int numCols) {
+        CollisionStrategy collisionStrategy= new BasicCollisionStrategy(this);
+        int brickWidth = windowDimensions.hashCode()/numCols - 1;
+        Vector2 brickDims = new Vector2(brickWidth, BRICK_HEIGHT);
+
+        for (int i = 0; i < numRows; i++){
+            for (int j = 0; j < numCols; j++){
+                Vector2 brickLoc = new Vector2(j*(brickWidth+3),i*(BRICK_HEIGHT+3));
+                createBrick(brickImage, windowDimensions, collisionStrategy, brickDims, brickLoc);
+            }
+        }
     }
 
     private void createBall(ImageReader imageReader, SoundReader soundReader, Vector2 windowDimensions){
@@ -64,10 +79,9 @@ public class BrickerGameManager extends GameManager{
         gameObjects().addGameObject(userPaddle);
     }
 
-    private void createBrick(Renderable brickImage, Vector2 windowDimensions) {
-        CollisionStrategy collisionStrategy = new BasicCollisionStrategy(this);
-        GameObject brick =
-                new Brick(Vector2.ZERO, new Vector2(windowDimensions.x(), BRICK_HEIGHT), brickImage, collisionStrategy);
+    private void createBrick(Renderable brickImage, Vector2 windowDimensions,
+                             CollisionStrategy collisionStrategy, Vector2 brickDims, Vector2 brickLoc) {
+        GameObject brick = new Brick(brickLoc, brickDims, brickImage, collisionStrategy);
         gameObjects().addGameObject(brick, Layer.STATIC_OBJECTS);
     }
 
@@ -95,10 +109,9 @@ public class BrickerGameManager extends GameManager{
         // create walls
         createWalls(windowDimensions);
 
-        //create brick
+        //add bricks
         Renderable  brickImage = imageReader.readImage("assets/brick.png", false);
-        createBrick(brickImage, windowDimensions);
-
+        addBricks(windowDimensions ,brickImage, NUM_ROWS_OF_BRICKS, NUM_COLS_OF_BRICKS);
     }
 
 
