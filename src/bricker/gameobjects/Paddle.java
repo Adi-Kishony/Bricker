@@ -12,6 +12,8 @@ public class Paddle extends GameObject {
     private static final float MOVEMENT_SPEED = 300;
     private final UserInputListener inputListener;
 
+    private Vector2 windowDimensions;
+
     /**
      * Construct a new GameObject instance.
      *
@@ -23,9 +25,10 @@ public class Paddle extends GameObject {
      * @param inputListener
      */
     public Paddle(Vector2 topLeftCorner, Vector2 dimensions,
-                  Renderable renderable, UserInputListener inputListener) {
+                  Renderable renderable, UserInputListener inputListener, Vector2 windowDimensions) {
         super(topLeftCorner, dimensions, renderable);
         this.inputListener = inputListener;
+        this.windowDimensions = windowDimensions;
     }
 
     @Override
@@ -34,10 +37,14 @@ public class Paddle extends GameObject {
         Vector2 movementDir = Vector2.ZERO;
 
         if(inputListener.isKeyPressed(KeyEvent.VK_LEFT)){
-            movementDir = movementDir.add(new Vector2(Vector2.LEFT));
+            if (this.getTopLeftCorner().x() > 0) {
+                movementDir = movementDir.add(new Vector2(Vector2.LEFT));
+            }
         }
         if(inputListener.isKeyPressed(KeyEvent.VK_RIGHT)){
-            movementDir = movementDir.add(new Vector2(Vector2.RIGHT));
+            if (this.getTopLeftCorner().x() + this.getDimensions().x() < windowDimensions.x()) {
+                movementDir = movementDir.add(new Vector2(Vector2.RIGHT));
+            }
         }
         setVelocity(movementDir.mult(MOVEMENT_SPEED));
     }

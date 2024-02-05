@@ -15,7 +15,7 @@ import danogl.util.Vector2;
 import java.util.Random;
 
 public class BrickerGameManager extends GameManager{
-
+    private int numRows, numCols;
     private static final float BALL_SPEED = 250;
     private static final int BORDER_WIDTH = 10;
     private static final int PADDLE_WIDTH = 150;
@@ -25,11 +25,19 @@ public class BrickerGameManager extends GameManager{
     private static  final int BRICK_HEIGHT = 15;
     private static final int NUM_ROWS_OF_BRICKS = 7;
     private static final int NUM_COLS_OF_BRICKS = 8;
-
     private static final int PADDING_PIXELS = 3;
 
-    public BrickerGameManager(String windowTitle, Vector2 windowDimensions){
+
+    public BrickerGameManager(String windowTitle, Vector2 windowDimensions, int numRows, int numCols){
         super(windowTitle, windowDimensions);
+        if (numCols == 0 || numRows == 0){
+            this.numRows = NUM_ROWS_OF_BRICKS;
+            this.numCols = NUM_COLS_OF_BRICKS;
+        }
+        else {
+            this.numRows = numRows;
+            this.numCols = numCols;
+        }
     }
 
     private void createWalls(Vector2 windowDimensions){
@@ -77,7 +85,8 @@ public class BrickerGameManager extends GameManager{
                 Vector2.ZERO,
                 new Vector2(PADDLE_WIDTH,PADDLE_HEIGHT),
                 paddleImage,
-                inputListener);
+                inputListener,
+                windowDimensions);
         userPaddle.setCenter(new Vector2(windowDimensions.x()/2,(int)windowDimensions.y()-DIST_FROM_EDGE_OF_DISPLAY));
         gameObjects().addGameObject(userPaddle);
     }
@@ -114,7 +123,7 @@ public class BrickerGameManager extends GameManager{
 
         //add bricks
         Renderable  brickImage = imageReader.readImage("assets/brick.png", false);
-        addBricks(windowDimensions ,brickImage, NUM_ROWS_OF_BRICKS, NUM_COLS_OF_BRICKS);
+        addBricks(windowDimensions ,brickImage, numRows, numCols);
     }
 
 
@@ -135,8 +144,16 @@ public class BrickerGameManager extends GameManager{
     }
 
     public static void main(String[] args) {
-        BrickerGameManager gameManager = new BrickerGameManager("Bricker", new Vector2(500,500));
+        int numRows = 0;
+        int numCols = 0;
+        if (args.length == 2) {
+            numRows = Integer.parseInt(args[0]);
+            numCols = Integer.parseInt(args[1]);
+        }
+        BrickerGameManager gameManager = new BrickerGameManager("Bricker",
+                new Vector2(500,500), numRows, numCols);
         gameManager.run();
+
 
 
 
