@@ -16,6 +16,7 @@ import java.util.Random;
 
 public class BrickerGameManager extends GameManager{
     private int numRows, numCols;
+    private WindowController windowController;
     private static final float BALL_SPEED = 250;
     private static final int BORDER_WIDTH = 10;
     private static final int PADDLE_WIDTH = 150;
@@ -103,6 +104,7 @@ public class BrickerGameManager extends GameManager{
         // Initialization
         super.initializeGame(imageReader, soundReader, inputListener, windowController);
         Vector2 windowDimensions = windowController.getWindowDimensions();
+        this.windowController = windowController;
 
         // create background
         Renderable bgImage = imageReader.readImage("assets/DARK_BG2_small.jpeg", false);
@@ -126,6 +128,33 @@ public class BrickerGameManager extends GameManager{
         addBricks(windowDimensions ,brickImage, numRows, numCols);
     }
 
+    @Override
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+        checkForGameEnd();
+    }
+
+    private void checkForGameEnd() {
+        float ballHeight = ball.getCentert().y();
+        checkForGameEnd();
+        String prompt = "";
+        if (ballHeight < 0){
+            prompt = "You Win!";
+        }
+        Vector2 windowDimension = windowController.getWindowDimensions();
+        if (ballHeight > windowDimension.y()){
+            prompt = "You Lose!";
+        }
+        if(!prompt.isEmpty()){
+            prompt += " Play again?";
+            if (windowController.openYesNoDialog(prompt)){
+                windowController.resetGame();
+            }
+            else {
+                windowController.closeWindow();
+            }
+        }
+    }
 
     public void removeGameObject(GameObject obj, int layer){
         gameObjects().removeGameObject(obj,layer);
