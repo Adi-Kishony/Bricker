@@ -11,8 +11,8 @@ import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
 public class BrickerGameManager extends GameManager{
-    private int numRows, numCols;
-
+    private final int numRows;
+    private final int numCols;
     private LivesManager livesManager;
     private WindowController windowController;
     private Ball ball;
@@ -111,10 +111,9 @@ public class BrickerGameManager extends GameManager{
 
         //add remaining lives graphics
         Renderable heartImage = imageReader.readImage("assets/heart.png",true);
-        LivesManager livesManager = new LivesManager(new Vector2(Constants.LIVES_START_PIXEL, windowDimensions.y()),
+        this.livesManager = new LivesManager(new Vector2(Constants.LIVES_START_PIXEL, windowDimensions.y() - Constants.DISTANCE_FROM_BOTTOM),
                 new Vector2(Constants.HEART_DIMENSIONS, Constants.HEART_DIMENSIONS),
                 heartImage,Constants.INITIAL_NUM_LIVES,this);
-        this.livesManager = livesManager;
     }
 
     @Override

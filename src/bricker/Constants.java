@@ -14,4 +14,5 @@ public class Constants {
     public static  final  int LIVES_START_PIXEL = 20;
     public static  final  int HEART_DIMENSIONS = 20;
     public static final  int INITIAL_NUM_LIVES = 3;
+    public static final int DISTANCE_FROM_BOTTOM = 30;
 }
