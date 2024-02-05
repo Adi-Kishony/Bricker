@@ -21,8 +21,6 @@ public class LivesManager {
     private final Heart[] hearts;
     private final Vector2 dimensionsOfOneHeart;
     private final Vector2 topLeftCornerOfFirstHeart;
-    private final static float HEART_PADDING = 6;
-    private final static int DISTANCE_FROM_BOTTOM = 30;
     private final Renderable renderable;
     private int currentLives;
 
@@ -44,10 +42,10 @@ public class LivesManager {
 
     public void addLife(){
         if (currentLives < initialNumLives){
-            float xLoc = currentLives*(dimensionsOfOneHeart.x() + HEART_PADDING) +
+            float xLoc = currentLives*(dimensionsOfOneHeart.x() + Constants.HEART_PADDING) +
                     topLeftCornerOfFirstHeart.x();
             Heart newHeart = new Heart(new Vector2(xLoc,topLeftCornerOfFirstHeart.y() -
-                    DISTANCE_FROM_BOTTOM), dimensionsOfOneHeart, renderable);
+                    Constants.DISTANCE_FROM_BOTTOM), dimensionsOfOneHeart, renderable);
             hearts[currentLives] = newHeart;
             brickerGameManager.addGameObject(newHeart,Layer.BACKGROUND);
             currentLives += 1;
@@ -67,8 +65,8 @@ public class LivesManager {
         Vector2 heartLoc;
         float xLoc;
         for(int i = 0; i< initialNumLives; i++){
-            xLoc = topLeftCornerOfFirstHeart.x() + i*(dimensionsOfOneHeart.x() + HEART_PADDING);
-            heartLoc = new Vector2(xLoc, topLeftCornerOfFirstHeart.y() - DISTANCE_FROM_BOTTOM);
+            xLoc = topLeftCornerOfFirstHeart.x() + i*(dimensionsOfOneHeart.x() + Constants.HEART_PADDING);
+            heartLoc = new Vector2(xLoc, topLeftCornerOfFirstHeart.y() - Constants.DISTANCE_FROM_BOTTOM);
             heart = new Heart(heartLoc, dimensionsOfOneHeart, renderable);
             brickerGameManager.addGameObject(heart, Layer.BACKGROUND);
             hearts[i] = heart;
