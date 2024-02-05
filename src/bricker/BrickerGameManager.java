@@ -26,6 +26,8 @@ public class BrickerGameManager extends GameManager{
     private static final int NUM_ROWS_OF_BRICKS = 7;
     private static final int NUM_COLS_OF_BRICKS = 8;
 
+    private static final int PADDING_PIXELS = 3;
+
     public BrickerGameManager(String windowTitle, Vector2 windowDimensions){
         super(windowTitle, windowDimensions);
     }
@@ -41,12 +43,13 @@ public class BrickerGameManager extends GameManager{
 
     private void addBricks(Vector2 windowDimensions ,Renderable brickImage, int numRows, int numCols) {
         CollisionStrategy collisionStrategy= new BasicCollisionStrategy(this);
-        int brickWidth = windowDimensions.hashCode()/numCols - 1;
+        float brickWidth = windowDimensions.x()/numCols - PADDING_PIXELS;
         Vector2 brickDims = new Vector2(brickWidth, BRICK_HEIGHT);
 
         for (int i = 0; i < numRows; i++){
             for (int j = 0; j < numCols; j++){
-                Vector2 brickLoc = new Vector2(j*(brickWidth+3),i*(BRICK_HEIGHT+3));
+                Vector2 brickLoc = new Vector2(j*(brickWidth+PADDING_PIXELS) + PADDING_PIXELS,
+                        i*(BRICK_HEIGHT+PADDING_PIXELS)+PADDING_PIXELS);
                 createBrick(brickImage, windowDimensions, collisionStrategy, brickDims, brickLoc);
             }
         }
