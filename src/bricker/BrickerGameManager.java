@@ -111,7 +111,7 @@ public class BrickerGameManager extends GameManager{
 
         //add remaining lives graphics
         Renderable heartImage = imageReader.readImage("assets/heart.png",true);
-        LivesManager livesManager = new LivesManager(new Vector2(Constants.HEARTS_START_PIXEL, windowDimensions.y()),
+        LivesManager livesManager = new LivesManager(new Vector2(Constants.LIVES_START_PIXEL, windowDimensions.y()),
                 new Vector2(Constants.HEART_DIMENSIONS, Constants.HEART_DIMENSIONS),
                 heartImage,Constants.INITIAL_NUM_LIVES,this);
         this.livesManager = livesManager;
