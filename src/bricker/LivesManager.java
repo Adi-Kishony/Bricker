@@ -1,11 +1,11 @@
-package bricker.gameobjects;
+package bricker;
 
-import bricker.BrickerGameManager;
+import bricker.gameobjects.Heart;
 import danogl.collisions.Layer;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
-public class Hearts {
+public class LivesManager {
 
     /**
      * Construct a new GameObject instance.
@@ -18,16 +18,16 @@ public class Hearts {
      */
     private final int initialNumLives;
     private final BrickerGameManager brickerGameManager;
-    private Heart[] hearts;
-    private Vector2 dimensionsOfOneHeart;
+    private final Heart[] hearts;
+    private final Vector2 dimensionsOfOneHeart;
     private final Vector2 topLeftCornerOfFirstHeart;
     private final static float HEART_PADDING = 6;
     private final static int DISTANCE_FROM_BOTTOM = 30;
-    private Renderable renderable;
+    private final Renderable renderable;
     private int currentLives;
 
-    public Hearts(Vector2 topLeftCornerOfFirstHeart, Vector2 dimensionsOfOneHeart, Renderable renderable,
-                  int initialNumLives, BrickerGameManager brickerGameManager) {
+    public LivesManager(Vector2 topLeftCornerOfFirstHeart, Vector2 dimensionsOfOneHeart, Renderable renderable,
+                        int initialNumLives, BrickerGameManager brickerGameManager) {
         this.initialNumLives = initialNumLives;
         this.brickerGameManager = brickerGameManager;
         this.hearts = new Heart[initialNumLives];
@@ -42,7 +42,7 @@ public class Hearts {
         return currentLives;
     }
 
-    public void addHeart(){
+    public void addLife(){
         if (currentLives < initialNumLives){
             float xLoc = currentLives*(dimensionsOfOneHeart.x() + HEART_PADDING) +
                     topLeftCornerOfFirstHeart.x();
@@ -54,7 +54,7 @@ public class Hearts {
         }
     }
 
-    public void removeHeart(){
+    public void removeLife(){
         if (currentLives > 0){
             currentLives--;
             brickerGameManager.removeGameObject(hearts[currentLives],Layer.BACKGROUND);

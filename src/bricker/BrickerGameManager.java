@@ -10,12 +10,10 @@ import danogl.gui.*;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
-import java.util.Random;
-
 public class BrickerGameManager extends GameManager{
     private int numRows, numCols;
 
-    private Hearts livesLeft;
+    private LivesManager livesManager;
     private WindowController windowController;
     private static final float BALL_SPEED = 250;
     private static final int BORDER_WIDTH = 10;
@@ -60,7 +58,7 @@ public class BrickerGameManager extends GameManager{
             for (int j = 0; j < numCols; j++){
                 Vector2 brickLoc = new Vector2(j*(brickWidth+PADDING_PIXELS) + PADDING_PIXELS,
                         i*(BRICK_HEIGHT+PADDING_PIXELS)+PADDING_PIXELS);
-                createBrick(brickImage, windowDimensions, collisionStrategy, brickDims, brickLoc);
+                createBrick(brickImage, collisionStrategy, brickDims, brickLoc);
             }
         }
     }
@@ -86,8 +84,7 @@ public class BrickerGameManager extends GameManager{
         gameObjects().addGameObject(userPaddle);
     }
 
-    private void createBrick(Renderable brickImage, Vector2 windowDimensions,
-                             CollisionStrategy collisionStrategy, Vector2 brickDims, Vector2 brickLoc) {
+    private void createBrick(Renderable brickImage, CollisionStrategy collisionStrategy, Vector2 brickDims, Vector2 brickLoc) {
         GameObject brick = new Brick(brickLoc, brickDims, brickImage, collisionStrategy);
         gameObjects().addGameObject(brick, Layer.STATIC_OBJECTS);
     }
@@ -123,9 +120,9 @@ public class BrickerGameManager extends GameManager{
 
         //add remaining lives graphics
         Renderable heartImage = imageReader.readImage("assets/heart.png",true);
-        Hearts livesLeft = new Hearts(new Vector2(5, windowDimensions.y()),new Vector2(20,20),
+        LivesManager livesManager = new LivesManager(new Vector2(5, windowDimensions.y()),new Vector2(20,20),
                 heartImage,3,this);
-        this.livesLeft = livesLeft;
+        this.livesManager = livesManager;
     }
 
     @Override
@@ -138,12 +135,12 @@ public class BrickerGameManager extends GameManager{
         float ballHeight = ball.getCenter().y();
         String prompt = "";
         if (ballHeight > windowController.getWindowDimensions().y()){
-            if (livesLeft.getCurrentLives() <= 1){
-                livesLeft.removeHeart();
+            if (livesManager.getCurrentLives() <= 1){
+                livesManager.removeLife();
                 prompt = "You Lose!";
             }
             else{
-                livesLeft.removeHeart();
+                livesManager.removeLife();
                 ball.reCenterBall(windowController.getWindowDimensions(), BALL_SPEED);
             }
         }
