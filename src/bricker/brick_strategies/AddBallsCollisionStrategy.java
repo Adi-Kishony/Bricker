@@ -22,7 +22,7 @@ public class AddBallsCollisionStrategy extends  BasicCollisionStrategy implement
     private void createPuckBall(ImageReader imageReader, Vector2 ballDimensions, Vector2 ballLoc){
         Renderable puckBallImage = imageReader.readImage("assets/mockBall.png", true);
         Sound collisionSound = brickerGameManager.getSoundReader().readSound("assets/blop_cut_silenced.wav");
-        Puck puckBall = new Puck(Vector2.ZERO, ballDimensions, puckBallImage, collisionSound);
+        Puck puckBall = new Puck(ballLoc, ballDimensions, puckBallImage, collisionSound);
         puckBall.reCenterBall(brickerGameManager.getWindowDimensions(), Constants.BALL_SPEED, ballLoc);
         brickerGameManager.addGameObject(puckBall);
     }
