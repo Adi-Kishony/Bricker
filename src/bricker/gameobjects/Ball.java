@@ -9,7 +9,7 @@ import danogl.util.Vector2;
 import java.util.Random;
 
 public class Ball extends GameObject {
-    private Sound collisionSound;
+    protected Sound collisionSound;
 
     public Ball(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, Sound collisionSound) {
         super(topLeftCorner, dimensions, renderable);

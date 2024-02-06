@@ -114,7 +114,7 @@ public class BrickerGameManager extends GameManager{
         Renderable ballImage = imageReader.readImage("assets/ball.png", true);
         this.mainBall = createBall(ballImage, new Vector2(Constants.BALL_RADIUS, Constants.BALL_RADIUS));
 
-        // create user paddle
+        // create paddle
         createUserPaddle(new Vector2(windowDimensions.x()/2,
                 (int)windowDimensions.y()-Constants.DIST_FROM_EDGE_OF_DISPLAY));
 
@@ -205,6 +205,13 @@ public class BrickerGameManager extends GameManager{
         return inputListener;
     }
 
+    public ImageReader getImageReader(){
+        return imageReader;
+    }
+
+    public SoundReader getSoundReader(){
+        return soundReader;
+    }
     public static void main(String[] args) {
         int numRows = 0;
         int numCols = 0;
