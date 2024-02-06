@@ -8,14 +8,21 @@ import danogl.GameObject;
 import danogl.collisions.Layer;
 import danogl.gui.*;
 import danogl.gui.rendering.Renderable;
+import danogl.util.Counter;
 import danogl.util.Vector2;
+import danogl.gui.UserInputListener;
+
+
+import java.awt.event.KeyEvent;
 
 public class BrickerGameManager extends GameManager{
     private final int numRows;
     private final int numCols;
+    private Counter bricksLeft;
     private LivesManager livesManager;
     private WindowController windowController;
     private Ball ball;
+    private UserInputListener inputListener;
 
 
     public BrickerGameManager(String windowTitle, Vector2 windowDimensions, int numRows, int numCols){
@@ -76,7 +83,7 @@ public class BrickerGameManager extends GameManager{
     }
 
     private void createBrick(Renderable brickImage, CollisionStrategy collisionStrategy, Vector2 brickDims, Vector2 brickLoc) {
-        GameObject brick = new Brick(brickLoc, brickDims, brickImage, collisionStrategy);
+        GameObject brick = new Brick(brickLoc, brickDims, brickImage, collisionStrategy, bricksLeft);
         gameObjects().addGameObject(brick, Layer.STATIC_OBJECTS);
     }
 
@@ -85,8 +92,10 @@ public class BrickerGameManager extends GameManager{
 
         // Initialization
         super.initializeGame(imageReader, soundReader, inputListener, windowController);
+        this.bricksLeft = new Counter(numRows*numCols);
         Vector2 windowDimensions = windowController.getWindowDimensions();
         this.windowController = windowController;
+        this.inputListener = inputListener;
 
         // create background
         Renderable bgImage = imageReader.readImage("assets/DARK_BG2_small.jpeg", false);
@@ -119,30 +128,47 @@ public class BrickerGameManager extends GameManager{
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-        checkForGameEnd();
+        boolean isGameWon = gameWon();
+        boolean isGameLost = gameLost();
+        if (inputListener.isKeyPressed(KeyEvent.VK_W)){
+            endOfGameUI("You Win!");
+        }
+        if (isGameWon){
+            endOfGameUI("You Win!");
+        }
+        else if(isGameLost){
+            endOfGameUI("You Lose!");
+        }
     }
 
-    private void checkForGameEnd() {
+    private boolean gameWon(){
+        if (bricksLeft.value() <= 0){
+            return true;
+        }
+        return false;
+    }
+
+    private boolean gameLost(){
         float ballHeight = ball.getCenter().y();
-        String prompt = "";
         if (ballHeight > windowController.getWindowDimensions().y()){
             if (livesManager.getCurrentLives() <= 1){
                 livesManager.removeLife();
-                prompt = "You Lose!";
+                return true;
             }
             else{
                 livesManager.removeLife();
                 ball.reCenterBall(windowController.getWindowDimensions(), Constants.BALL_SPEED);
             }
         }
-        if(!prompt.isEmpty()){
-            prompt += " Play again?";
-            if (windowController.openYesNoDialog(prompt)){
-                windowController.resetGame();
-            }
-            else {
-                windowController.closeWindow();
-            }
+        return false;
+    }
+
+    private void endOfGameUI(String prompt) {
+        prompt += " Play again?";
+        if (windowController.openYesNoDialog(prompt)) {
+            windowController.resetGame();
+        } else {
+            windowController.closeWindow();
         }
     }
 
