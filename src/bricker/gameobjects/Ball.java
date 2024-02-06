@@ -31,8 +31,8 @@ public class Ball extends GameObject {
         return collisionCounter;
     }
 
-    public void reCenterBall(Vector2 windowDimensions, float ballSpeed){
-        this.setCenter(windowDimensions.mult(0.5f));
+    public void reCenterBall(Vector2 windowDimensions, float ballSpeed, Vector2 ballCenter){
+        this.setCenter(ballCenter);
         float ballVelY = ballSpeed;
         float ballVelX = ballSpeed;
         Random rand = new Random();

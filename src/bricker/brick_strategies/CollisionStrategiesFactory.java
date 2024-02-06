@@ -1,11 +1,13 @@
 package bricker.brick_strategies;
 
 import bricker.BrickerGameManager;
+import danogl.util.Vector2;
 
 public class CollisionStrategiesFactory {
     private final BrickerGameManager brickerGameManager;
 
-    public CollisionStrategiesFactory(BrickerGameManager brickerGameManager) {
+    public CollisionStrategiesFactory(BrickerGameManager brickerGameManager,
+                                      Vector2 paddleDimensions) {
         this.brickerGameManager = brickerGameManager;
     }
 
