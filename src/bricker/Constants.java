@@ -5,7 +5,7 @@ public class Constants {
     public static final int BORDER_WIDTH = 10;
     public static final int PADDLE_WIDTH = 150;
     public static final int PADDLE_HEIGHT = 20;
-    public static final int BALL_RADIUS = 35;
+    public static final int BALL_RADIUS = 25;
     public static final int DIST_FROM_EDGE_OF_DISPLAY = 50;
     public static  final int BRICK_HEIGHT = 15;
     public static final int NUM_ROWS_OF_BRICKS = 7;

@@ -225,6 +225,13 @@ public class BrickerGameManager extends GameManager{
         return inputListener;
     }
 
+    public ImageReader getImageReader(){
+        return imageReader;
+    }
+
+    public SoundReader getSoundReader(){
+        return soundReader;
+    }
     public static void main(String[] args) {
         int numRows = 0;
         int numCols = 0;
