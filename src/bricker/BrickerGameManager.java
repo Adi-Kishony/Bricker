@@ -1,6 +1,8 @@
 package bricker;
 
 import bricker.brick_strategies.BasicCollisionStrategy;
+import bricker.brick_strategies.BrickStrategyType;
+import bricker.brick_strategies.CollisionStrategiesFactory;
 import bricker.brick_strategies.CollisionStrategy;
 import bricker.gameobjects.*;
 import danogl.GameManager;
@@ -14,6 +16,9 @@ import danogl.gui.UserInputListener;
 
 
 import java.awt.event.KeyEvent;
+import java.util.Random;
+
+import static bricker.brick_strategies.BrickStrategyType.BASIC;
 
 public class BrickerGameManager extends GameManager{
     private final int numRows;
@@ -53,7 +58,7 @@ public class BrickerGameManager extends GameManager{
     }
 
     private void addBricks(Renderable brickImage) {
-        CollisionStrategy collisionStrategy= new BasicCollisionStrategy(this);
+        CollisionStrategy collisionStrategy = getRandomCollisionStrategy();
         float brickWidth = windowDimensions.x()/numCols - Constants.PADDING_PIXELS;
         Vector2 brickDims = new Vector2(brickWidth, Constants.BRICK_HEIGHT);
         for (int i = 0; i < numRows; i++){
@@ -66,6 +71,21 @@ public class BrickerGameManager extends GameManager{
         }
     }
 
+    private CollisionStrategy getRandomCollisionStrategy(){
+        Random random = new Random();
+        int randomNumber = random.nextInt(10);
+        BrickStrategyType strategy;
+        if (randomNumber > 4){
+            strategy = BASIC;
+        }
+        else{
+            strategy = BrickStrategyType.values()[randomNumber];
+        }
+        CollisionStrategiesFactory collisionStrategiesFactory = new CollisionStrategiesFactory(this);
+        CollisionStrategy collisionStrategy = collisionStrategiesFactory.generateCollisionStrategy(strategy);
+        return collisionStrategy;
+    }
+
     private Ball createBall(Renderable ballImage, Vector2 ballDimensions){
         Sound collisionSound = soundReader.readSound("assets/blop_cut_silenced.wav");
         Ball ball = new Ball(Vector2.ZERO, ballDimensions, ballImage, collisionSound);
@@ -74,7 +94,7 @@ public class BrickerGameManager extends GameManager{
         return ball;
     }
 
-    private void createUserPaddle(Vector2 paddleCenter){
+    public void createPaddle(Vector2 paddleCenter){
         Renderable paddleImage = imageReader.readImage("assets/paddle.png",true);
         GameObject userPaddle = new Paddle(
                 Vector2.ZERO,
@@ -115,7 +135,7 @@ public class BrickerGameManager extends GameManager{
         this.mainBall = createBall(ballImage, new Vector2(Constants.BALL_RADIUS, Constants.BALL_RADIUS));
 
         // create user paddle
-        createUserPaddle(new Vector2(windowDimensions.x()/2,
+        createPaddle(new Vector2(windowDimensions.x()/2,
                 (int)windowDimensions.y()-Constants.DIST_FROM_EDGE_OF_DISPLAY));
 
         // create walls

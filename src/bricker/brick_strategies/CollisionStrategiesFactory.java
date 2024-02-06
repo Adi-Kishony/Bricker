@@ -6,8 +6,7 @@ import danogl.util.Vector2;
 public class CollisionStrategiesFactory {
     private final BrickerGameManager brickerGameManager;
 
-    public CollisionStrategiesFactory(BrickerGameManager brickerGameManager,
-                                      Vector2 paddleDimensions) {
+    public CollisionStrategiesFactory(BrickerGameManager brickerGameManager) {
         this.brickerGameManager = brickerGameManager;
     }
 
@@ -17,8 +16,11 @@ public class CollisionStrategiesFactory {
             case BASIC:
                 collisionStrategy = new BasicCollisionStrategy(brickerGameManager);
                 break;
+            case ADD_PADDLE:
+                collisionStrategy = new AddPaddleCollisionStrategy(brickerGameManager);
+                break;
             default:
-                collisionStrategy = null;
+                collisionStrategy = new AddPaddleCollisionStrategy(brickerGameManager);;
                 break;
         }
         return collisionStrategy;
