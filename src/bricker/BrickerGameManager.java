@@ -58,11 +58,12 @@ public class BrickerGameManager extends GameManager{
     }
 
     private void addBricks(Renderable brickImage) {
-        CollisionStrategy collisionStrategy = getRandomCollisionStrategy();
+        CollisionStrategy collisionStrategy;
         float brickWidth = windowDimensions.x()/numCols - Constants.PADDING_PIXELS;
         Vector2 brickDims = new Vector2(brickWidth, Constants.BRICK_HEIGHT);
         for (int i = 0; i < numRows; i++){
             for (int j = 0; j < numCols; j++){
+                collisionStrategy = getRandomCollisionStrategy();
                 Vector2 brickLoc = new Vector2(j*(brickWidth+Constants.PADDING_PIXELS) +
                         Constants.PADDING_PIXELS,i*(Constants.BRICK_HEIGHT+Constants.PADDING_PIXELS)+
                         Constants.PADDING_PIXELS);
