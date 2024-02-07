@@ -23,7 +23,7 @@ public class CollisionStrategiesFactory {
                 collisionStrategy = new AddBallsCollisionStrategy(brickerGameManager);
                 break;
             default:
-                collisionStrategy = new AddBallsCollisionStrategy(brickerGameManager);;
+                collisionStrategy = new BasicCollisionStrategy(brickerGameManager);;
                 break;
         }
         return collisionStrategy;

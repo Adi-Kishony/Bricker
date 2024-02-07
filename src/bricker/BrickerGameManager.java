@@ -95,7 +95,7 @@ public class BrickerGameManager extends GameManager{
         return ball;
     }
 
-    public void createPaddle(Vector2 paddleCenter){
+    private void createPaddle(Vector2 paddleCenter){
         Renderable paddleImage = imageReader.readImage("assets/paddle.png",true);
         GameObject userPaddle = new Paddle(
                 Vector2.ZERO,
