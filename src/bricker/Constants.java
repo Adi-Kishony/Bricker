@@ -14,5 +14,22 @@ public class Constants {
     public static  final  int LIVES_START_PIXEL = 20;
     public static  final  int HEART_DIMENSIONS = 20;
     public static final  int INITIAL_NUM_LIVES = 3;
+    public static final int MAX_NUM_LIVES = 4;
     public static final int DISTANCE_FROM_BOTTOM = 30;
+
+    public static final String HEART_IMG_PATH = "assets/heart.png";
+
+    public static final String BALL_IMG_PATH = "assets/ball.png";
+
+    public static final String BRICK_IMG_PATH = "assets/brick.png";
+
+    public static final String PADDLE_IMG_PATH = "assets/paddle.png";
+
+    public static final String PUCK_IMG_PATH = "assets/mockBall.png";
+
+    public static final String BG_IMG_PATH = "assets/DARK_BG2_small.jpeg";
+
+    public static final String BLOP_SOUND_PATH = "assets/blop_cut_silenced.wav";
+
+    public static final int HEART_VELOCITY = 100;
 }

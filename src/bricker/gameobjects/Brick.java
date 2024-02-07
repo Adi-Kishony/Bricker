@@ -30,10 +30,7 @@ public class Brick extends GameObject {
 
     @Override
     public void onCollisionEnter(GameObject other, Collision collision) {
-//        super.onCollisionEnter(other, collision);
         bricksLeft.decrement();
         collisionStrategy.onCollision(this, other);
-
-
     }
 }

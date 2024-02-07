@@ -32,6 +32,11 @@ public class Paddle extends GameObject {
     }
 
     @Override
+    public String getTag() {
+        return "Paddle";
+    }
+
+    @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
         Vector2 movementDir = Vector2.ZERO;

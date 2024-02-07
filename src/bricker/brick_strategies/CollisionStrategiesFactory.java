@@ -16,15 +16,20 @@ public class CollisionStrategiesFactory {
             case BASIC:
                 collisionStrategy = new BasicCollisionStrategy(brickerGameManager);
                 break;
-            case ADD_PADDLE:
-                collisionStrategy = new AddPaddleCollisionStrategy(brickerGameManager);
+//            case ADD_PADDLE:
+//                collisionStrategy = new AddPaddleCollisionStrategy(brickerGameManager);
+//                break;
+//            case ADD_BALLS:
+//                collisionStrategy = new AddBallsCollisionStrategy(brickerGameManager);
+//                break;
+//            case ADD_LIFE:
+//                collisionStrategy = new AddLifeCollisionStrategy(brickerGameManager);
+//                break;
+            case CAMERA_CHANGE:
+                collisionStrategy = new CameraZoomCollisionStrategy(brickerGameManager);
                 break;
-            case ADD_BALLS:
-                collisionStrategy = new AddBallsCollisionStrategy(brickerGameManager);
-                break;
-
             default:
-                collisionStrategy = new AddBallsCollisionStrategy(brickerGameManager);
+                collisionStrategy = new CameraZoomCollisionStrategy(brickerGameManager);
                 break;
         }
         return collisionStrategy;

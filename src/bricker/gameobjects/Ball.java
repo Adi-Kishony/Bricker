@@ -14,14 +14,21 @@ public class Ball extends GameObject {
     public Ball(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, Sound collisionSound) {
         super(topLeftCorner, dimensions, renderable);
         this.collisionSound = collisionSound;
+        this.collisionCounter = 0;
     }
 
+    private int collisionCounter;
     @Override
     public void onCollisionEnter(GameObject other, Collision collision) {
         super.onCollisionEnter(other, collision);
         Vector2 newVel = getVelocity().flipped(collision.getNormal());
         setVelocity(newVel);
+        collisionCounter++;
         collisionSound.play();
+    }
+
+    public int getCollisionCounter() {
+        return collisionCounter;
     }
 
     public void reCenterBall(Vector2 windowDimensions, float ballSpeed, Vector2 ballCenter){
@@ -34,5 +41,10 @@ public class Ball extends GameObject {
             ballVelY *= -1;
         }
         this.setVelocity(new Vector2(ballVelX,ballVelY));
+    }
+
+    @Override
+    public String getTag() {
+        return "Ball";
     }
 }

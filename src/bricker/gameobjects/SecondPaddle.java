@@ -25,4 +25,9 @@ public class SecondPaddle extends Paddle {
             }
         }
     }
+
+    @Override
+    public String getTag() {
+        return "extra paddle";
+    }
 }

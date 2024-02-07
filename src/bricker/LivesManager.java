@@ -15,14 +15,13 @@ public class LivesManager {
     private final Vector2 topLeftCornerOfLivesPanel;
     private final Renderable renderable;
     private int currentLives;
-    private NumericLivesCounter numericLivesCounter;
-
+    private final NumericLivesCounter numericLivesCounter;
 
     public LivesManager(Vector2 topLeftCornerOfFirstHeart, Vector2 dimensionsOfOneHeart, Renderable renderable,
                         int initialNumLives, BrickerGameManager brickerGameManager) {
         this.initialNumLives = initialNumLives;
         this.brickerGameManager = brickerGameManager;
-        this.hearts = new Heart[initialNumLives];
+        this.hearts = new Heart[Constants.MAX_NUM_LIVES];
         this.topLeftCornerOfLivesPanel = topLeftCornerOfFirstHeart;
         this.currentLives = initialNumLives;
         this.dimensionsOfOneHeart = dimensionsOfOneHeart;
@@ -38,7 +37,7 @@ public class LivesManager {
     }
 
     public void addLife(){
-        if (currentLives < initialNumLives){
+        if (currentLives < Constants.MAX_NUM_LIVES){
             float xLoc = currentLives*(dimensionsOfOneHeart.x() + HEART_PADDING) +
                     topLeftCornerOfLivesPanel.x() + numericLivesCounter.getDimensions().x();
             Heart newHeart = new Heart(new Vector2(xLoc,
@@ -63,7 +62,8 @@ public class LivesManager {
         Vector2 heartLoc;
         float xLoc;
         for(int i = 0; i< initialNumLives; i++){
-            xLoc = topLeftCornerOfLivesPanel.x() + numericLivesCounter.getDimensions().x() + i*(dimensionsOfOneHeart.x() + HEART_PADDING);
+            xLoc = topLeftCornerOfLivesPanel.x() + numericLivesCounter.getDimensions().x() +
+                    i*(dimensionsOfOneHeart.x() + HEART_PADDING);
             heartLoc = new Vector2(xLoc, topLeftCornerOfLivesPanel.y());
             heart = new Heart(heartLoc, dimensionsOfOneHeart, renderable);
             brickerGameManager.addGameObject(heart, Layer.BACKGROUND);
