@@ -1,6 +1,5 @@
 package bricker;
 
-import bricker.brick_strategies.BasicCollisionStrategy;
 import bricker.brick_strategies.BrickStrategyType;
 import bricker.brick_strategies.CollisionStrategiesFactory;
 import bricker.brick_strategies.CollisionStrategy;
@@ -8,6 +7,7 @@ import bricker.gameobjects.*;
 import danogl.GameManager;
 import danogl.GameObject;
 import danogl.collisions.Layer;
+import danogl.components.CoordinateSpace;
 import danogl.gui.*;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Counter;
@@ -27,6 +27,7 @@ public class BrickerGameManager extends GameManager{
     private Counter bricksLeft;
     private ImageReader imageReader;
     private LivesManager livesManager;
+    private CollisionStrategy[] collisionStrategies;
     private SoundReader soundReader;
     private WindowController windowController;
     private Ball mainBall;
@@ -75,16 +76,14 @@ public class BrickerGameManager extends GameManager{
     private CollisionStrategy getRandomCollisionStrategy(){
         Random random = new Random();
         int randomNumber = random.nextInt(10);
-        BrickStrategyType strategy;
+        int strategy;
         if (randomNumber > 4){
-            strategy = BASIC;
+            strategy = 5;
         }
         else{
-            strategy = BrickStrategyType.values()[randomNumber];
+            strategy = randomNumber;
         }
-        CollisionStrategiesFactory collisionStrategiesFactory = new CollisionStrategiesFactory(this);
-        CollisionStrategy collisionStrategy = collisionStrategiesFactory.generateCollisionStrategy(strategy);
-        return collisionStrategy;
+        return this.collisionStrategies[strategy];
     }
 
     private Ball createBall(Renderable ballImage, Vector2 ballDimensions){
@@ -113,8 +112,20 @@ public class BrickerGameManager extends GameManager{
         gameObjects().addGameObject(brick, Layer.STATIC_OBJECTS);
     }
 
+    private void initCollisionStrategies(){
+        int numberOfStrategies = BrickStrategyType.values().length;
+        CollisionStrategiesFactory collisionStrategiesFactory = new CollisionStrategiesFactory(this);
+        this.collisionStrategies = new CollisionStrategy[BrickStrategyType.values().length];
+        BrickStrategyType strategy;
+        for (int i = 0; i < numberOfStrategies; i++){
+            strategy = BrickStrategyType.values()[i];
+            this.collisionStrategies[i] = collisionStrategiesFactory.generateCollisionStrategy(strategy);
+        }
+    }
+
     @Override
-    public void initializeGame(ImageReader imageReader, SoundReader soundReader, UserInputListener inputListener, WindowController windowController) {
+    public void initializeGame(ImageReader imageReader, SoundReader soundReader, UserInputListener
+            inputListener, WindowController windowController) {
         // Initialization
         super.initializeGame(imageReader, soundReader, inputListener, windowController);
         this.imageReader = imageReader;
@@ -124,11 +135,14 @@ public class BrickerGameManager extends GameManager{
         this.windowController = windowController;
         this.inputListener = inputListener;
 
+        //create collision strategy list
+        initCollisionStrategies();
+
         // create background
         Renderable bgImage = imageReader.readImage("assets/DARK_BG2_small.jpeg", false);
         GameObject background =
                 new GameObject(Vector2.ZERO, new Vector2(windowDimensions.x(), windowDimensions.y()), bgImage);
-        //background.setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
+        background.setCoordinateSpace(CoordinateSpace.CAMERA_COORDINATES);
         addGameObject(background,Layer.BACKGROUND);
 
         //create ball
@@ -233,6 +247,7 @@ public class BrickerGameManager extends GameManager{
     public SoundReader getSoundReader(){
         return soundReader;
     }
+
     public static void main(String[] args) {
         int numRows = 0;
         int numCols = 0;

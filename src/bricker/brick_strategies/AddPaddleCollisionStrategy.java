@@ -19,17 +19,21 @@ public class AddPaddleCollisionStrategy extends BasicCollisionStrategy implement
     @Override
     public void onCollision(GameObject obj1, GameObject obj2) {
         super.onCollision(obj1, obj2);
-        Renderable paddleImage = brickerGameManager.getImageReader().readImage("assets/paddle.png",true);
-        this.secondPaddle = new SecondPaddle(
-                brickerGameManager.getWindowDimensions().mult(0.5f),
-                new Vector2(Constants.PADDLE_WIDTH, Constants.PADDLE_HEIGHT),
-                paddleImage,
-                brickerGameManager.getInputListener(),
-                brickerGameManager.getWindowDimensions(), this);
-        brickerGameManager.addGameObject(this.secondPaddle);
+        if (this.secondPaddle == null) {
+            Renderable paddleImage = brickerGameManager.getImageReader().readImage("assets/paddle.png",
+                    true);
+            this.secondPaddle = new SecondPaddle(
+                    brickerGameManager.getWindowDimensions().mult(0.5f),
+                    new Vector2(Constants.PADDLE_WIDTH, Constants.PADDLE_HEIGHT),
+                    paddleImage,
+                    brickerGameManager.getInputListener(),
+                    brickerGameManager.getWindowDimensions(), this);
+            brickerGameManager.addGameObject(this.secondPaddle);
+        }
     }
 
     public void removePaddle(){
         brickerGameManager.removeGameObject(secondPaddle);
+        this.secondPaddle = null;
     }
 }
