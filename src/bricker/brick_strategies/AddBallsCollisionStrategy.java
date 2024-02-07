@@ -27,6 +27,14 @@ public class AddBallsCollisionStrategy extends  BasicCollisionStrategy implement
         brickerGameManager.addGameObject(puckBall);
     }
 
+//    public void removePuckBall(Puck puckBall){
+//            float ballHeight = puckBall.getCenter().y();
+//            if (ballHeight > brickerGameManager.getWindowDimensions().y()){
+//                    brickerGameManager.removeGameObject(puckBall);
+//            }
+//    }
+
+
     @Override
     public void onCollision(GameObject obj1, GameObject obj2) {
         super.onCollision(obj1, obj2);
