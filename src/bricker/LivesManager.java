@@ -28,7 +28,7 @@ public class LivesManager {
         this.renderable = renderable;
         this.numericLivesCounter = new NumericLivesCounter(new Vector2(topLeftCornerOfLivesPanel.x(),
                 topLeftCornerOfLivesPanel.y()-HEART_PADDING), dimensionsOfOneHeart, initialNumLives);
-        this.brickerGameManager.addGameObject(this.numericLivesCounter);
+        this.brickerGameManager.addGameObject(this.numericLivesCounter, Layer.BACKGROUND);
         createHearts();
     }
 
