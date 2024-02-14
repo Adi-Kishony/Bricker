@@ -27,7 +27,6 @@ public class BrickerGameManager extends GameManager{
     private Counter bricksLeft;
     private ImageReader imageReader;
     private LivesManager livesManager;
-    private CollisionStrategy[] collisionStrategies;
     private SoundReader soundReader;
     private WindowController windowController;
     private Ball mainBall;
@@ -73,7 +72,7 @@ public class BrickerGameManager extends GameManager{
         }
     }
 
-    private CollisionStrategy getRandomCollisionStrategy(){
+    public CollisionStrategy getRandomCollisionStrategy(){
         Random random = new Random();
         int randomNumber = random.nextInt(10);
         int strategy;
@@ -83,7 +82,8 @@ public class BrickerGameManager extends GameManager{
         else{
             strategy = randomNumber;
         }
-        return this.collisionStrategies[strategy];
+        CollisionStrategiesFactory collisionStrategiesFactory = new CollisionStrategiesFactory(this);
+        return collisionStrategiesFactory.generateCollisionStrategy(BrickStrategyType.values()[strategy]);
     }
 
     private Ball createBall(Renderable ballImage, Vector2 ballDimensions){
@@ -112,16 +112,6 @@ public class BrickerGameManager extends GameManager{
         gameObjects().addGameObject(brick, Layer.STATIC_OBJECTS);
     }
 
-    private void initCollisionStrategies(){
-        int numberOfStrategies = BrickStrategyType.values().length;
-        CollisionStrategiesFactory collisionStrategiesFactory = new CollisionStrategiesFactory(this);
-        this.collisionStrategies = new CollisionStrategy[BrickStrategyType.values().length];
-        BrickStrategyType strategy;
-        for (int i = 0; i < numberOfStrategies; i++){
-            strategy = BrickStrategyType.values()[i];
-            this.collisionStrategies[i] = collisionStrategiesFactory.generateCollisionStrategy(strategy);
-        }
-    }
 
     @Override
     public void initializeGame(ImageReader imageReader, SoundReader soundReader, UserInputListener
@@ -134,9 +124,6 @@ public class BrickerGameManager extends GameManager{
         this.windowDimensions = windowController.getWindowDimensions();
         this.windowController = windowController;
         this.inputListener = inputListener;
-
-        //create collision strategy list
-        initCollisionStrategies();
 
         // create background
         Renderable bgImage = imageReader.readImage(Constants.BG_IMG_PATH, false);
@@ -157,7 +144,7 @@ public class BrickerGameManager extends GameManager{
         createWalls();
 
         //add bricks
-        Renderable  brickImage = imageReader.readImage(Constants.BRICK_IMG_PATH, false);
+        Renderable brickImage = imageReader.readImage(Constants.BRICK_IMG_PATH, false);
         addBricks(brickImage);
 
         //add remaining lives graphics
@@ -243,6 +230,8 @@ public class BrickerGameManager extends GameManager{
     public ImageReader getImageReader(){
         return imageReader;
     }
+
+    public Ball getMainBall(){return mainBall;}
 
     public SoundReader getSoundReader(){
         return soundReader;

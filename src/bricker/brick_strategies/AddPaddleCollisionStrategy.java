@@ -2,7 +2,6 @@ package bricker.brick_strategies;
 
 import bricker.BrickerGameManager;
 import bricker.Constants;
-import bricker.gameobjects.Paddle;
 import bricker.gameobjects.SecondPaddle;
 import danogl.GameObject;
 import danogl.gui.rendering.Renderable;
@@ -11,15 +10,17 @@ import danogl.util.Vector2;
 public class AddPaddleCollisionStrategy extends BasicCollisionStrategy implements CollisionStrategy{
     private SecondPaddle secondPaddle;
 
+    private static int numPaddles = 0;
+
     public AddPaddleCollisionStrategy(BrickerGameManager brickerGameManager) {
         super(brickerGameManager);
-        this.secondPaddle = null;
     }
 
     @Override
     public void onCollision(GameObject obj1, GameObject obj2) {
         super.onCollision(obj1, obj2);
-        if (this.secondPaddle == null) {
+        if (numPaddles == 0) {
+            numPaddles++;
             Renderable paddleImage = brickerGameManager.getImageReader().readImage("assets/paddle.png",
                     true);
             this.secondPaddle = new SecondPaddle(
@@ -34,6 +35,6 @@ public class AddPaddleCollisionStrategy extends BasicCollisionStrategy implement
 
     public void removePaddle(){
         brickerGameManager.removeGameObject(secondPaddle);
-        this.secondPaddle = null;
+        numPaddles = 0;
     }
 }

@@ -1,7 +1,5 @@
 package bricker.brick_strategies;
-
 import bricker.BrickerGameManager;
-import danogl.util.Vector2;
 
 public class CollisionStrategiesFactory {
     private final BrickerGameManager brickerGameManager;
@@ -12,6 +10,7 @@ public class CollisionStrategiesFactory {
 
     public CollisionStrategy generateCollisionStrategy(BrickStrategyType strategyType){
         CollisionStrategy collisionStrategy;
+        System.out.println("factory");
         switch (strategyType){
             case BASIC:
                 collisionStrategy = new BasicCollisionStrategy(brickerGameManager);
@@ -25,11 +24,13 @@ public class CollisionStrategiesFactory {
             case ADD_LIFE:
                 collisionStrategy = new AddLifeCollisionStrategy(brickerGameManager);
                 break;
-//            case CAMERA_CHANGE:
-//                collisionStrategy = new CameraZoomCollisionStrategy(brickerGameManager);
-//                break;
+            case CAMERA_CHANGE:
+                collisionStrategy = new CameraZoomCollisionStrategy(brickerGameManager);
+                break;
+//            case DOUBLE_STRATEGY:
+//                collisionStrategy = new DoubleCollisionStrategy(brickerGameManager);
             default:
-                collisionStrategy = new BasicCollisionStrategy(brickerGameManager);
+                collisionStrategy = new CameraZoomCollisionStrategy(brickerGameManager);
                 break;
         }
         return collisionStrategy;

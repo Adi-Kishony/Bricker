@@ -2,13 +2,10 @@ package bricker.brick_strategies;
 
 import bricker.BrickerGameManager;
 import bricker.Constants;
-import bricker.gameobjects.Ball;
 import bricker.gameobjects.Puck;
 import danogl.GameObject;
-import danogl.collisions.Layer;
 import danogl.gui.ImageReader;
 import danogl.gui.Sound;
-import danogl.gui.SoundReader;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
