@@ -10,7 +10,6 @@ public class CollisionStrategiesFactory {
 
     public CollisionStrategy generateCollisionStrategy(BrickStrategyType strategyType){
         CollisionStrategy collisionStrategy;
-        System.out.println("factory");
         switch (strategyType){
             case BASIC:
                 collisionStrategy = new BasicCollisionStrategy(brickerGameManager);
@@ -27,10 +26,10 @@ public class CollisionStrategiesFactory {
             case CAMERA_CHANGE:
                 collisionStrategy = new CameraZoomCollisionStrategy(brickerGameManager);
                 break;
-//            case DOUBLE_STRATEGY:
-//                collisionStrategy = new DoubleCollisionStrategy(brickerGameManager);
+            case DOUBLE_STRATEGY:
+                collisionStrategy = new DoubleCollisionStrategy(brickerGameManager);
             default:
-                collisionStrategy = new CameraZoomCollisionStrategy(brickerGameManager);
+                collisionStrategy = new BasicCollisionStrategy(brickerGameManager);
                 break;
         }
         return collisionStrategy;

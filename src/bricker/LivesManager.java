@@ -7,7 +7,6 @@ import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
 public class LivesManager {
-    public final static float HEART_PADDING = 6;
     private final int initialNumLives;
     private final BrickerGameManager brickerGameManager;
     private final Heart[] hearts;
@@ -27,7 +26,7 @@ public class LivesManager {
         this.dimensionsOfOneHeart = dimensionsOfOneHeart;
         this.renderable = renderable;
         this.numericLivesCounter = new NumericLivesCounter(new Vector2(topLeftCornerOfLivesPanel.x(),
-                topLeftCornerOfLivesPanel.y()-HEART_PADDING), dimensionsOfOneHeart, initialNumLives);
+                topLeftCornerOfLivesPanel.y()-Constants.HEART_PADDING), dimensionsOfOneHeart, initialNumLives);
         this.brickerGameManager.addGameObject(this.numericLivesCounter, Layer.BACKGROUND);
         createHearts();
     }
@@ -38,7 +37,7 @@ public class LivesManager {
 
     public void addLife(){
         if (currentLives < Constants.MAX_NUM_LIVES){
-            float xLoc = currentLives*(dimensionsOfOneHeart.x() + HEART_PADDING) +
+            float xLoc = currentLives*(dimensionsOfOneHeart.x() + Constants.HEART_PADDING) +
                     topLeftCornerOfLivesPanel.x() + numericLivesCounter.getDimensions().x();
             Heart newHeart = new Heart(new Vector2(xLoc,
                     topLeftCornerOfLivesPanel.y()), dimensionsOfOneHeart, renderable);
@@ -63,7 +62,7 @@ public class LivesManager {
         float xLoc;
         for(int i = 0; i< initialNumLives; i++){
             xLoc = topLeftCornerOfLivesPanel.x() + numericLivesCounter.getDimensions().x() +
-                    i*(dimensionsOfOneHeart.x() + HEART_PADDING);
+                    i*(dimensionsOfOneHeart.x() + Constants.HEART_PADDING);
             heartLoc = new Vector2(xLoc, topLeftCornerOfLivesPanel.y());
             heart = new Heart(heartLoc, dimensionsOfOneHeart, renderable);
             brickerGameManager.addGameObject(heart, Layer.BACKGROUND);

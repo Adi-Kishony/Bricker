@@ -13,12 +13,9 @@ import danogl.gui.rendering.Renderable;
 import danogl.util.Counter;
 import danogl.util.Vector2;
 import danogl.gui.UserInputListener;
-
-
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
-import static bricker.brick_strategies.BrickStrategyType.BASIC;
 
 public class BrickerGameManager extends GameManager{
     private final int numRows;
@@ -74,10 +71,10 @@ public class BrickerGameManager extends GameManager{
 
     public CollisionStrategy getRandomCollisionStrategy(){
         Random random = new Random();
-        int randomNumber = random.nextInt(10);
+        int randomNumber = random.nextInt(Constants.RANDOM_STRATEGY_RANGE);
         int strategy;
-        if (randomNumber > 4){
-            strategy = 5;
+        if (randomNumber >= Constants.BASIC_STRATEGY_START_INDEX){
+            strategy = Constants.BASIC_STRATEGY_START_INDEX;
         }
         else{
             strategy = randomNumber;
@@ -89,7 +86,7 @@ public class BrickerGameManager extends GameManager{
     private Ball createBall(Renderable ballImage, Vector2 ballDimensions){
         Sound collisionSound = soundReader.readSound(Constants.BLOP_SOUND_PATH);
         Ball ball = new Ball(Vector2.ZERO, ballDimensions, ballImage, collisionSound);
-        ball.reCenterBall(windowDimensions, Constants.BALL_SPEED, windowDimensions.mult(0.5f));
+        ball.reCenterBall(Constants.BALL_SPEED, windowDimensions.mult(Constants.MULTIPLY_FACTOR_HALF));
         addGameObject(ball);
         return ball;
     }
@@ -161,18 +158,18 @@ public class BrickerGameManager extends GameManager{
         boolean isGameWon = gameWon();
         boolean isGameLost = gameLost();
         if (inputListener.isKeyPressed(KeyEvent.VK_W)){
-            endOfGameUI("You Win!");
+            endOfGameUI(Constants.WIN_MESSAGE);
         }
         if (isGameWon){
-            endOfGameUI("You Win!");
+            endOfGameUI(Constants.WIN_MESSAGE);
         }
         else if(isGameLost){
-            endOfGameUI("You Lose!");
+            endOfGameUI(Constants.LOSE_MESSAGE);
         }
     }
 
     private boolean gameWon(){
-        if (bricksLeft.value() <= 0){
+        if (bricksLeft.value() < Constants.LAST_BRICK_NUMBER){
             return true;
         }
         return false;
@@ -181,14 +178,13 @@ public class BrickerGameManager extends GameManager{
     private boolean gameLost(){
         float ballHeight = mainBall.getCenter().y();
         if (ballHeight > windowController.getWindowDimensions().y()){
-            if (livesManager.getCurrentLives() <= 1){
+            if (livesManager.getCurrentLives() <= Constants.LAST_LIFE_NUMBER){
                 livesManager.removeLife();
                 return true;
             }
             else{
                 livesManager.removeLife();
-                mainBall.reCenterBall(windowController.getWindowDimensions(), Constants.BALL_SPEED,
-                        windowDimensions.mult(0.5f));
+                mainBall.reCenterBall(Constants.BALL_SPEED, windowDimensions.mult(Constants.MULTIPLY_FACTOR_HALF));
             }
         }
         return false;
@@ -236,25 +232,21 @@ public class BrickerGameManager extends GameManager{
     public SoundReader getSoundReader(){
         return soundReader;
     }
-    public Vector2 getMainBallDims(){
-        return mainBall.getDimensions();
-    }
 
     public LivesManager getLivesManager(){
         return livesManager;
     }
 
 
-
     public static void main(String[] args) {
         int numRows = 0;
         int numCols = 0;
-        if (args.length == 2) {
+        if (args.length == Constants.EXPECTED_ARGS_LEN) {
             numRows = Integer.parseInt(args[0]);
             numCols = Integer.parseInt(args[1]);
         }
         BrickerGameManager gameManager = new BrickerGameManager("Bricker",
-                new Vector2(500,500), numRows, numCols);
+                new Vector2(Constants.BOARD_GAME_WIDTH,Constants.BOARD_GAME_HIGH), numRows, numCols);
         gameManager.run();
     }
 }

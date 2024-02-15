@@ -10,7 +10,7 @@ import danogl.util.Vector2;
 public class AddPaddleCollisionStrategy extends BasicCollisionStrategy implements CollisionStrategy{
     private SecondPaddle secondPaddle;
 
-    private static int numPaddles = 0;
+    private static boolean existsPaddle = false;
 
     public AddPaddleCollisionStrategy(BrickerGameManager brickerGameManager) {
         super(brickerGameManager);
@@ -19,12 +19,12 @@ public class AddPaddleCollisionStrategy extends BasicCollisionStrategy implement
     @Override
     public void onCollision(GameObject obj1, GameObject obj2) {
         super.onCollision(obj1, obj2);
-        if (numPaddles == 0) {
-            numPaddles++;
-            Renderable paddleImage = brickerGameManager.getImageReader().readImage("assets/paddle.png",
+        if (!existsPaddle) {
+            existsPaddle = true;
+            Renderable paddleImage = brickerGameManager.getImageReader().readImage(Constants.PADDLE_IMG_PATH,
                     true);
             this.secondPaddle = new SecondPaddle(
-                    brickerGameManager.getWindowDimensions().mult(0.5f),
+                    brickerGameManager.getWindowDimensions().mult(Constants.MULTIPLY_FACTOR_HALF),
                     new Vector2(Constants.PADDLE_WIDTH, Constants.PADDLE_HEIGHT),
                     paddleImage,
                     brickerGameManager.getInputListener(),
@@ -35,6 +35,6 @@ public class AddPaddleCollisionStrategy extends BasicCollisionStrategy implement
 
     public void removePaddle(){
         brickerGameManager.removeGameObject(secondPaddle);
-        numPaddles = 0;
+        existsPaddle = false;
     }
 }

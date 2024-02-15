@@ -8,6 +8,8 @@ import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
 public class SecondPaddle extends Paddle {
+    private static final String SECOND_PADDLE_TAG = "extra paddle";
+    private static  int MAX_COLLISIONS = 4;
     private final AddPaddleCollisionStrategy myCreator;
     private int collisionCounter;
     public SecondPaddle(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, UserInputListener
@@ -20,7 +22,7 @@ public class SecondPaddle extends Paddle {
         super.onCollisionEnter(other, collision);
         if (other instanceof Ball){
             collisionCounter ++;
-            if (collisionCounter >= 4){
+            if (collisionCounter >= MAX_COLLISIONS){
                 myCreator.removePaddle();
             }
         }
@@ -28,6 +30,6 @@ public class SecondPaddle extends Paddle {
 
     @Override
     public String getTag() {
-        return "extra paddle";
+        return SECOND_PADDLE_TAG;
     }
 }

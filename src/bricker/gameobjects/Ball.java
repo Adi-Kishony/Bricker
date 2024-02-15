@@ -10,8 +10,9 @@ import danogl.util.Vector2;
 import java.util.Random;
 
 public class Ball extends GameObject {
+    public static final String BALL_TAG = "Ball";
     protected Sound collisionSound;
-    private Counter collisionCounter;
+    private final Counter collisionCounter;
 
     public Ball(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, Sound collisionSound) {
         super(topLeftCorner, dimensions, renderable);
@@ -25,7 +26,6 @@ public class Ball extends GameObject {
         Vector2 newVel = getVelocity().flipped(collision.getNormal());
         setVelocity(newVel);
         collisionCounter.increment();
-//        System.out.println(collisionCounter.value());
         collisionSound.play();
     }
 
@@ -33,7 +33,7 @@ public class Ball extends GameObject {
         return collisionCounter;
     }
 
-    public void reCenterBall(Vector2 windowDimensions, float ballSpeed, Vector2 ballCenter){
+    public void reCenterBall(float ballSpeed, Vector2 ballCenter){
         this.setCenter(ballCenter);
         float ballVelY = ballSpeed;
         float ballVelX = ballSpeed;
@@ -47,6 +47,6 @@ public class Ball extends GameObject {
 
     @Override
     public String getTag() {
-        return "Ball";
+        return BALL_TAG;
     }
 }

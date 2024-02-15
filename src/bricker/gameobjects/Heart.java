@@ -1,6 +1,5 @@
 package bricker.gameobjects;
 
-import bricker.brick_strategies.AddBallsCollisionStrategy;
 import bricker.brick_strategies.AddLifeCollisionStrategy;
 import danogl.GameObject;
 import danogl.collisions.Collision;
@@ -9,7 +8,7 @@ import danogl.util.Vector2;
 
 public class Heart extends GameObject {
 
-    private AddLifeCollisionStrategy myCreator;
+    private final AddLifeCollisionStrategy myCreator;
     public Heart(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable) {
         super(topLeftCorner, dimensions, renderable);
         this.myCreator = null;
@@ -23,7 +22,7 @@ public class Heart extends GameObject {
 
     @Override
     public boolean shouldCollideWith(GameObject other) {
-        return other.getTag().equals("Paddle");
+        return other.getTag().equals(Paddle.PADDLE_TAG);
     }
 
     @Override
@@ -32,7 +31,6 @@ public class Heart extends GameObject {
         if (myCreator != null){
             myCreator.caughtHeart(this);
         }
-
     }
 
     @Override

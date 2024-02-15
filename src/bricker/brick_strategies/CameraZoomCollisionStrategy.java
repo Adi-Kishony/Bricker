@@ -1,6 +1,7 @@
 package bricker.brick_strategies;
 
 import bricker.BrickerGameManager;
+import bricker.gameobjects.Ball;
 import bricker.gameobjects.CameraTracker;
 import danogl.GameObject;
 import danogl.gui.rendering.Camera;
@@ -28,7 +29,7 @@ public class CameraZoomCollisionStrategy extends BasicCollisionStrategy implemen
             cameraTracker = new CameraTracker(Vector2.ZERO, Vector2.ZERO, null,
                     brickerGameManager,camera);
             brickerGameManager.addGameObject(cameraTracker);
-            if (obj2.getTag().equals("Ball")){
+            if (obj2.getTag().equals(Ball.BALL_TAG)){
                 cameraTracker.setCameraOn(obj2);
             }
         }

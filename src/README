@@ -1,0 +1,94 @@
+adikishony, amitavnon
+209660935, 322396326
+
+1. In part 1.7, in order to enable the addition of game objects from other classes, we extended the API of the
+ BrickerGameManager class to include the public functions - addGameObject and removeGameObject to enable such
+ access.
+ ADVANTAGES:
+ - In this manner, we maintain encapsulation such that only BrickerGameManager accesses the collection
+   gameObjects(), and in addition, any strategy class that requires addition or removal of gameObjects (or
+   other services) is given a clear API enabling them to do so by using composition of the class
+   BrickerGameManager.
+ - Also, this design is compatible with the open close principle - the addition of a new
+   strategy solely requires the update of the factory and then the new strategy can use the public API that
+   already exists in the BrickerGameManager
+DISADVANTAGES:
+ - In this design each of our strategies uses the composition of the BrickerGameManager class gaining access to
+   all the public API. Not all strategy classes require all these functionalities, for example, access to the
+   game WindowDimensions or to the soundReader, somewhat breaking encapsulation.
+
+ 2. Presentation of lives left in game: In order to display and manage both the numeric and graphic
+ representations of the lives in the game we added the following classes:
+ - Heart: Heart is a type of game object which inherits from the GameObject class and simply represents a
+   single graphical heart. The same heart class is used both in the AddLifeCollisionStrategy and in the lives
+   left representation.
+ - NumericLivesCounter: NumericLivesCounter is also a game object. It represents a single numeric graphical
+   counter and is initialized to a starting value in it's constructor, and then client classes can uses the
+   public functions incrementLives() and decrementLives() to update it's value and accordingly it's color.
+ - LivesManager: LivesManager contains with composition both an array of Hearts and a NumericLivesCounter. The
+   Lives manager is responsible both for initially placing the hearts in the graphical representation and
+   updating the NumericLivesCounter. After initialization in the constructor, the game manager uses the public
+   functions addLife() and removeLife() and in turn the Life manager adds or removes hearts and updates the
+   NumericLivesCounter. The BrickerGameManager uses composition of a LivesManager.
+   This design uses abstract concepts in the manner that in the view point of the BrickerGameManagers, the
+   most basic functionality needed from the LivesManager is simply the ability to add or remove a life in the
+   game, and as the client of this class it does not need to be aware of the internal design.
+
+  3. Special Collision Strategies:
+     We decided that all these strategies will inherent from the BasicCollisionstrategy to reduce code
+     duplication - all Strategies compose of a game managers and remove the brick from the game objects on
+     collision.
+  - AddBallsCollisionStrategy: The OnCollision function calls super (BasicCollisionstrategy.onCollision) and
+    after it creates the two Puck Balls (described bellow) with random initial velocities. In addition the
+    class has the removePuckBall public function which receives the puck object and is called when the puck
+    ball has exited the screen.
+    Additional classes used: We created the Puck class that extends the Ball class (as puck is a type of ball)
+    this reduces code duplication for some common functions. The Puck ball is different from Ball because is
+    has a field myCreator(the Strategy) that is called in the update function such that the puck is removed
+    when it exists the screen by its creator.
+  - AddPaddleCollisionStrategy: The OnCollision function calls super (BasicCollisionstrategy.onCollision) and
+    after it creates a SecondPaddle game object (describes bellow), we used a static field to keep track of
+    whether there already is a second paddle in the game which be updated in the onCollision function and the
+    removePaddle function.
+    Additional classes used: We created the SecondPaddle class which extends the Paddle class. SecondPaddle is
+    a game object it uses the same update function as Paddle that enables it's movement, but is unique in the
+    manner that it contains the myCreator field (the strategy) and it's own override for onCollision enter
+    responsible for it's removal after hitting the ball four times.
+  - AddLifeCollisionStrategy: The OnCollision function calls super (BasicCollisionstrategy.onCollision) and
+    after creates a Heart (described below) that is added to the dynamic layer in the
+    location of the brick. The strategy composes of the LifeManager that enables it to update the lives in the
+    game when the heart is caught by the paddle. It uses the caughtHeart function which is called in the
+    Heart's onCollision function to remove the heart and add a life. In addition, the heart override the
+    update function of game object and calls the Strategy's remove heart, that removes the heart from the game
+    objects if it has left the screen.
+    Additional classes used: We created the Heart class which contains the myCreator field (the strategy) and
+    overrides the onCollision enter function such that is calls the strategy public caughtHeart function when
+    it recognizes a collision with the main paddle. It also overrides shouldCollideWith to specify that it
+    only collides with the Paddle game object. Notice that when the same heart object is used in the
+    LifeManager class it is added to the background layer so these functions are irrelevant.
+  - CameraZoomCollisionStrategy: The class contains the following fields: the camera object (of dano game lab)
+    and a field of CameraTracker which is an additional game object (described below). When the onCollision
+    function is called, if the BrickGameManager's camera isn't set we set we initialize the camera field and
+    set the game's camera to this new camera. In this case we also initialize the cameraTracker which is
+    responsible for following the state of the ball and turning on or turning off the camera accordingly.
+    Additional classes used: We created the CameraTracker class that contains the camera, and the main game
+    ball, and overrides the game object update function to check the number of ball collisions since the
+    camera has been turned on. The class is responsible for turning off the camera accordingly.
+
+ 4. DoubleCollisionStrategy: Our implementation of the double collision strategy can be considered use of the
+ decorator design pattern. The DoubleCollisionStrategy is also a collision strategy that contains the fields
+ strategy1 and strategy2 that are random collision strategies initialed using the collision strategy factory
+ in the constructor. The DoubleCollisionStrategy then "decorates" the onCollision function by calling the
+ onCollision functions of the strategies strategy1 and strategy2, and in this wrapping the two strategies in a
+ single strategy.
+ As instructed, the two strategies of the DoubleCollisionStrategy may recursively contain also another double
+ collision strategy, but no more than three of the regular collision strategies. Because our design is
+ recursive we used a recursive function regularStrategyAmount that counts the number of regular strategies in
+ what can be thought of as a tree of collision strategies, and if this amount exceeds 3 the strategies are
+ randomly selected again until a valid selection is made.
+
+ 5.
+
+
+
+
