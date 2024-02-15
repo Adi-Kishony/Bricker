@@ -1,7 +1,6 @@
 package bricker.gameobjects;
 
 import danogl.GameObject;
-import danogl.collisions.Collision;
 import danogl.gui.UserInputListener;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
@@ -9,7 +8,7 @@ import danogl.util.Vector2;
 import java.awt.event.KeyEvent;
 
 public class Paddle extends GameObject {
-    public static final String PADDLE_TAG ="Paddle";
+    public static final String PADDLE_TAG = "Paddle";
     private static final float MOVEMENT_SPEED = 300;
     private final UserInputListener inputListener;
     private final Vector2 windowDimensions;
@@ -31,12 +30,12 @@ public class Paddle extends GameObject {
         super.update(deltaTime);
         Vector2 movementDir = Vector2.ZERO;
 
-        if(inputListener.isKeyPressed(KeyEvent.VK_LEFT)){
+        if (inputListener.isKeyPressed(KeyEvent.VK_LEFT)) {
             if (this.getTopLeftCorner().x() > 0) {
                 movementDir = movementDir.add(new Vector2(Vector2.LEFT));
             }
         }
-        if(inputListener.isKeyPressed(KeyEvent.VK_RIGHT)){
+        if (inputListener.isKeyPressed(KeyEvent.VK_RIGHT)) {
             if (this.getTopLeftCorner().x() + this.getDimensions().x() < windowDimensions.x()) {
                 movementDir = movementDir.add(new Vector2(Vector2.RIGHT));
             }

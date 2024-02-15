@@ -15,27 +15,27 @@ DISADVANTAGES:
    to all the public API. Not all strategy classes require all these functionalities, for example, access to
    the game's ImageReader or to the soundReader, somewhat breaking encapsulation.
 
- 2. Presentation of lives left in game: In order to display and manage both the numeric and graphic
- representations of the lives in the game we added the following classes:
- - Heart: Heart is a type of game object which inherits from the GameObject class and simply represents a
-   single graphical heart. The same heart class is used both in the AddLifeCollisionStrategy and in the lives
-   left representation.
- - NumericLivesCounter: NumericLivesCounter is also a game object. It represents a single numeric graphical
-   counter and is initialized to a starting value in it's constructor, and then client classes can uses the
-   public functions incrementLives() and decrementLives() to update it's value and accordingly it's color.
- - LivesManager: LivesManager contains with composition both an array of Hearts and a NumericLivesCounter. The
-   Lives manager is responsible both for initially placing the hearts in the graphical representation and
-   updating the NumericLivesCounter. After initialization in the constructor, the game manager uses the public
-   functions addLife() and removeLife() and in turn the Life manager adds or removes hearts and updates the
-   NumericLivesCounter. The BrickerGameManager uses composition of a LivesManager.
-   This design uses abstract concepts in the manner that in the view point of the BrickerGameManagers, the
-   most basic functionality needed from the LivesManager is simply the ability to add or remove a life in the
-   game, and as the client of this class it does not need to be aware of the internal design.
+2. Presentation of lives left in game: In order to display and manage both the numeric and graphic
+representations of the lives in the game we added the following classes:
+- Heart: Heart is a type of game object which inherits from the GameObject class and simply represents a
+  single graphical heart. The same heart class is used both in the AddLifeCollisionStrategy and in the lives
+  left representation.
+- NumericLivesCounter: NumericLivesCounter is also a game object. It represents a single numeric graphical
+  counter and is initialized to a starting value in it's constructor, and then client classes can uses the
+  public functions incrementLives() and decrementLives() to update it's value and accordingly it's color.
+- LivesManager: LivesManager contains with composition both an array of Hearts and a NumericLivesCounter. The
+  Lives manager is responsible both for initially placing the hearts in the graphical representation and
+  updating the NumericLivesCounter. After initialization in the constructor, the game manager uses the public
+  functions addLife() and removeLife() and in turn the Life manager adds or removes hearts and updates the
+  NumericLivesCounter. The BrickerGameManager uses composition of a LivesManager.
+  This design uses abstract concepts in the manner that in the view point of the BrickerGameManagers, the
+  most basic functionality needed from the LivesManager is simply the ability to add or remove a life in the
+  game, and as the client of this class it does not need to be aware of the internal design.
 
-  3. Special Collision Strategies:
-     We decided that all these strategies will inherent from the BasicCollisionstrategy to reduce code
-     duplication - all Strategies compose of a game managers and remove the brick from the game objects on
-     collision.
+3. Special Collision Strategies:
+ We decided that all these strategies will inherent from the BasicCollisionstrategy to reduce code
+ duplication - all Strategies compose of a game managers and remove the brick from the game objects on
+ collision.
   - AddBallsCollisionStrategy: The OnCollision function calls super (BasicCollisionstrategy.onCollision) and
     after it creates the two Puck Balls (described bellow) with random initial velocities. In addition the
     class has the removePuckBall public function which receives the puck object and is called when the puck
@@ -73,41 +73,39 @@ DISADVANTAGES:
     ball, and overrides the game object update function to check the number of ball collisions since the
     camera has been turned on. The class is responsible for turning off the camera accordingly.
 
- 4. DoubleCollisionStrategy: Our implementation of the double collision strategy can be considered use of the
- decorator design pattern. The DoubleCollisionStrategy is also a collision strategy that contains the fields
- strategy1 and strategy2 that are random collision strategies initialed using the collision strategy factory
- in the constructor. The DoubleCollisionStrategy then "decorates" the onCollision function by calling the
- onCollision functions of the strategies strategy1 and strategy2, and in this wrapping the two strategies in a
- single strategy.
- As instructed, the two strategies of the DoubleCollisionStrategy may recursively contain also another double
- collision strategy, but no more than three of the regular collision strategies. Because our design is
- recursive we used a recursive function regularStrategyAmount that counts the number of regular strategies in
- what can be thought of as a tree of collision strategies, and if this amount exceeds 3 the strategies are
- randomly selected again until a valid selection is made.
+4. DoubleCollisionStrategy: Our implementation of the double collision strategy can be considered use of the
+decorator design pattern. The DoubleCollisionStrategy is also a collision strategy that contains the fields
+strategy1 and strategy2 that are random collision strategies initialed using the collision strategy factory
+in the constructor. The DoubleCollisionStrategy then "decorates" the onCollision function by calling the
+onCollision functions of the strategies strategy1 and strategy2, and in this wrapping the two strategies in a
+single strategy.
+As instructed, the two strategies of the DoubleCollisionStrategy may recursively contain also another double
+collision strategy, but no more than three of the regular collision strategies. Because our design is
+recursive we used a recursive function regularStrategyAmount that counts the number of regular strategies in
+what can be thought of as a tree of collision strategies, and if this amount exceeds 3 the strategies are
+randomly selected again until a valid selection is made.
 
- 5. The following functions are our extension of the BrickerGameManager API:
-    - Add/remove gameObject - explained in quesion 1.
+5. The following functions are our extension of the BrickerGameManager API:
+- Add/remove gameObject - explained in quesion 1.
 
-     public void removeGameObject(GameObject obj, int layer);
+ public void removeGameObject(GameObject obj, int layer);
 
-     public void removeGameObject(GameObject obj);
+ public void removeGameObject(GameObject obj);
 
-     public void addGameObject(GameObject obj, int layer);
+ public void addGameObject(GameObject obj, int layer);
 
-     public void addGameObject(GameObject obj);
+ public void addGameObject(GameObject obj);
 
-     - Getters for InputListener, ImageReader and getSoundReader
-     We noticed that many of our client classes require these services and making them public does not effect
-     the state of the game thus encapsulation is not damaged and the BrickerGameManager is still the sole
-     entity in charge of the state of the game.
+ - Getters for InputListener, ImageReader and getSoundReader
+   We noticed that many of our client classes require these services and making them public does not effect
+   the state of the game thus encapsulation is not damaged and the BrickerGameManager is still the sole
+   entity in charge of the state of the game.
 
-     public UserInputListener getInputListener();
+ public UserInputListener getInputListener();
 
-     public ImageReader getImageReader();
+ public ImageReader getImageReader();
 
-     public SoundReader getSoundReader();
-
-     -
+ public SoundReader getSoundReader();
 
 
 

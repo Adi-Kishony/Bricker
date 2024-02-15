@@ -33,16 +33,16 @@ public class Ball extends GameObject {
         return collisionCounter;
     }
 
-    public void reCenterBall(float ballSpeed, Vector2 ballCenter){
+    public void reCenterBall(float ballSpeed, Vector2 ballCenter) {
         this.setCenter(ballCenter);
         float ballVelY = ballSpeed;
         float ballVelX = ballSpeed;
         Random rand = new Random();
-        if(rand.nextBoolean()){
+        if (rand.nextBoolean()) {
             ballVelX *= -1;
             ballVelY *= -1;
         }
-        this.setVelocity(new Vector2(ballVelX,ballVelY));
+        this.setVelocity(new Vector2(ballVelX, ballVelY));
     }
 
     @Override

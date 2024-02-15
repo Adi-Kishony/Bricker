@@ -1,8 +1,6 @@
 package bricker.gameobjects;
 
 import bricker.brick_strategies.AddBallsCollisionStrategy;
-import danogl.GameObject;
-import danogl.collisions.Collision;
 import danogl.gui.Sound;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;

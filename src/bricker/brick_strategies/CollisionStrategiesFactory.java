@@ -1,10 +1,10 @@
 package bricker.brick_strategies;
+
 import bricker.BrickerGameManager;
 import bricker.Constants;
 import bricker.LivesManager;
 import bricker.gameobjects.Ball;
 import danogl.util.Vector2;
-
 import java.util.Random;
 
 public class CollisionStrategiesFactory {
@@ -18,28 +18,24 @@ public class CollisionStrategiesFactory {
         this.windowDimensions = windowDimensions;
         this.mainBall = mainBall;
         this.livesManager = livesManager;
-
-
     }
 
-    private BrickStrategyType getRandomCollisionStrategy(){
+    private BrickStrategyType getRandomCollisionStrategy() {
         Random random = new Random();
         int randomNumber = random.nextInt(Constants.RANDOM_STRATEGY_RANGE);
         int strategy;
-        if (randomNumber >= Constants.BASIC_STRATEGY_START_INDEX){
+        if (randomNumber >= Constants.BASIC_STRATEGY_START_INDEX) {
             strategy = Constants.BASIC_STRATEGY_START_INDEX;
-        }
-        else{
+        } else {
             strategy = randomNumber;
         }
         return BrickStrategyType.values()[strategy];
     }
 
-    public CollisionStrategy generateCollisionStrategy(){
+    public CollisionStrategy generateCollisionStrategy() {
         CollisionStrategy collisionStrategy;
         BrickStrategyType strategyType = getRandomCollisionStrategy();
-
-        switch (strategyType){
+        switch (strategyType) {
             case BASIC:
                 collisionStrategy = new BasicCollisionStrategy(brickerGameManager);
                 break;
@@ -62,6 +58,7 @@ public class CollisionStrategiesFactory {
             case DOUBLE_STRATEGY:
                 collisionStrategy = new DoubleCollisionStrategy(brickerGameManager, windowDimensions, mainBall
                         , livesManager);
+                break;
             default:
                 collisionStrategy = new BasicCollisionStrategy(brickerGameManager);
                 break;

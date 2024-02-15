@@ -1,18 +1,20 @@
 package bricker.brick_strategies;
+
 import bricker.BrickerGameManager;
 import bricker.LivesManager;
 import bricker.gameobjects.Ball;
 import danogl.GameObject;
 import danogl.util.Vector2;
 
-public class DoubleCollisionStrategy implements CollisionStrategy{
+public class DoubleCollisionStrategy implements CollisionStrategy {
+    private static final int MAX_STRATEGIES = 3;
     private final BrickerGameManager brickerGameManager;
     private final Ball mainBall;
     private final LivesManager livesManager;
     private final Vector2 windowsDimension;
     private CollisionStrategy strategy1;
     private CollisionStrategy strategy2;
-    private static final int MAX_STRATEGIES = 3;
+
     public DoubleCollisionStrategy(BrickerGameManager brickerGameManager, Vector2 windowDimensions,
                                    Ball mainBall, LivesManager livesManager) {
         this.brickerGameManager = brickerGameManager;
@@ -35,12 +37,12 @@ public class DoubleCollisionStrategy implements CollisionStrategy{
         strategy2 = randomStrategy2;
     }
 
-    private int regularStrategyAmount(CollisionStrategy strategy){
+    private int regularStrategyAmount(CollisionStrategy strategy) {
         if (!(strategy instanceof DoubleCollisionStrategy)) {
             return 1;
         }
-        return regularStrategyAmount(((DoubleCollisionStrategy)strategy).strategy1) +
-                regularStrategyAmount(((DoubleCollisionStrategy)strategy).strategy2);
+        return regularStrategyAmount(((DoubleCollisionStrategy) strategy).strategy1) +
+                regularStrategyAmount(((DoubleCollisionStrategy) strategy).strategy2);
     }
 
     @Override

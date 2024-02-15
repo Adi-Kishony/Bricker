@@ -9,9 +9,13 @@ import danogl.util.Vector2;
 
 public class SecondPaddle extends Paddle {
     private static final String SECOND_PADDLE_TAG = "extra paddle";
-    private static  int MAX_COLLISIONS = 4;
+
+    private static final int MAX_COLLISIONS = 4;
+
     private final AddPaddleCollisionStrategy myCreator;
+
     private int collisionCounter;
+
     public SecondPaddle(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, UserInputListener
             inputListener, Vector2 windowDimensions, AddPaddleCollisionStrategy myCreator) {
         super(topLeftCorner, dimensions, renderable, inputListener, windowDimensions);

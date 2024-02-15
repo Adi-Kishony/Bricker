@@ -9,6 +9,7 @@ import danogl.util.Vector2;
 public class Heart extends GameObject {
 
     private final AddLifeCollisionStrategy myCreator;
+
     public Heart(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable) {
         super(topLeftCorner, dimensions, renderable);
         this.myCreator = null;
@@ -18,7 +19,6 @@ public class Heart extends GameObject {
         super(topLeftCorner, dimensions, renderable);
         this.myCreator = myCreator;
     }
-
 
     @Override
     public boolean shouldCollideWith(GameObject other) {

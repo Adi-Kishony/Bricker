@@ -28,18 +28,12 @@ public class Constants {
     public final static float HEART_PADDING = 6;
     public static final String HEART_IMG_PATH = "assets/heart.png";
     public static final String BALL_IMG_PATH = "assets/ball.png";
-
     public static final String BRICK_IMG_PATH = "assets/brick.png";
-
     public static final String PADDLE_IMG_PATH = "assets/paddle.png";
-
     public static final String PUCK_IMG_PATH = "assets/mockBall.png";
-
     public static final String BG_IMG_PATH = "assets/DARK_BG2_small.jpeg";
-
     public static final String BLOP_SOUND_PATH = "assets/blop_cut_silenced.wav";
     public static final String WIN_MESSAGE = "You Win!";
     public static final String LOSE_MESSAGE = "You Lose!";
-
     public static final String PLAY_AGAIN_MESSAGE =" Play again?";
 }
