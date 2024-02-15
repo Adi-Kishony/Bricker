@@ -2,6 +2,7 @@ package bricker.brick_strategies;
 
 import bricker.BrickerGameManager;
 import bricker.Constants;
+import bricker.gameobjects.Ball;
 import bricker.gameobjects.Puck;
 import danogl.GameObject;
 import danogl.gui.ImageReader;
@@ -12,8 +13,14 @@ import java.util.Random;
 
 public class AddBallsCollisionStrategy extends  BasicCollisionStrategy implements CollisionStrategy{
 
-    public AddBallsCollisionStrategy(BrickerGameManager brickerGameManager) {
+    private final Vector2 windowDimensions;
+    private final Ball mainBall;
+
+    public AddBallsCollisionStrategy(BrickerGameManager brickerGameManager, Vector2 windowDimensions,
+                                     Ball mainBall) {
         super(brickerGameManager);
+        this.windowDimensions = windowDimensions;
+        this.mainBall = mainBall;
     }
 
     private static final float PUCK_BALL_SIZE_RATIO = 0.75f;
@@ -33,7 +40,7 @@ public class AddBallsCollisionStrategy extends  BasicCollisionStrategy implement
 
     public void removeCheckPuck(Puck puckBall){
         float ballHeight = puckBall.getCenter().y();
-            if (ballHeight > brickerGameManager.getWindowDimensions().y()){
+            if (ballHeight > windowDimensions.y()){
                     brickerGameManager.removeGameObject(puckBall);
             }
     }
@@ -42,7 +49,7 @@ public class AddBallsCollisionStrategy extends  BasicCollisionStrategy implement
     public void onCollision(GameObject obj1, GameObject obj2) {
         super.onCollision(obj1, obj2);
         Vector2 brickLoc = obj1.getCenter();
-        Vector2 ballDimensions = brickerGameManager.getMainBall().getDimensions();
+        Vector2 ballDimensions = mainBall.getDimensions();
         Vector2 puckBallDimensions = new Vector2(ballDimensions.x()*(PUCK_BALL_SIZE_RATIO),
                 ballDimensions.y()*(PUCK_BALL_SIZE_RATIO));
         createPuckBall(brickerGameManager.getImageReader(), puckBallDimensions, brickLoc);

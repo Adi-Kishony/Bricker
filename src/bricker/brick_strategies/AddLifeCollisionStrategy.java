@@ -2,14 +2,23 @@ package bricker.brick_strategies;
 
 import bricker.BrickerGameManager;
 import bricker.Constants;
+import bricker.LivesManager;
 import bricker.gameobjects.Heart;
 import danogl.GameObject;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
 public class AddLifeCollisionStrategy extends BasicCollisionStrategy implements CollisionStrategy{
-    public AddLifeCollisionStrategy(BrickerGameManager brickerGameManager) {
+
+    private final LivesManager livesManager;
+    private final Vector2 windowDimensions;
+
+    public AddLifeCollisionStrategy(BrickerGameManager brickerGameManager, Vector2 windowDimensions,
+                                    LivesManager livesManager) {
         super(brickerGameManager);
+        this.livesManager = livesManager;
+        this.windowDimensions = windowDimensions;
+
     }
 
     @Override
@@ -24,12 +33,12 @@ public class AddLifeCollisionStrategy extends BasicCollisionStrategy implements 
 
     public void caughtHeart(Heart heart) {
         brickerGameManager.removeGameObject(heart);
-        brickerGameManager.getLivesManager().addLife();
+        livesManager.addLife();
     }
 
     public void checkOutOfBounds(Heart heart) {
         float heartHeight = heart.getDimensions().y();
-        if (heartHeight > brickerGameManager.getWindowDimensions().y()){
+        if (heartHeight > windowDimensions.y()){
             brickerGameManager.removeGameObject(heart);
         }
     }

@@ -8,12 +8,14 @@ import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 
 public class AddPaddleCollisionStrategy extends BasicCollisionStrategy implements CollisionStrategy{
+    private final Vector2 windowDimensions;
     private SecondPaddle secondPaddle;
-
     private static boolean existsPaddle = false;
 
-    public AddPaddleCollisionStrategy(BrickerGameManager brickerGameManager) {
+    public AddPaddleCollisionStrategy(BrickerGameManager brickerGameManager, Vector2 windowDimensions) {
         super(brickerGameManager);
+        this.windowDimensions = windowDimensions;
+
     }
 
     @Override
@@ -24,11 +26,11 @@ public class AddPaddleCollisionStrategy extends BasicCollisionStrategy implement
             Renderable paddleImage = brickerGameManager.getImageReader().readImage(Constants.PADDLE_IMG_PATH,
                     true);
             this.secondPaddle = new SecondPaddle(
-                    brickerGameManager.getWindowDimensions().mult(Constants.MULTIPLY_FACTOR_HALF),
+                    windowDimensions.mult(Constants.MULTIPLY_FACTOR_HALF),
                     new Vector2(Constants.PADDLE_WIDTH, Constants.PADDLE_HEIGHT),
                     paddleImage,
                     brickerGameManager.getInputListener(),
-                    brickerGameManager.getWindowDimensions(), this);
+                    windowDimensions, this);
             brickerGameManager.addGameObject(this.secondPaddle);
         }
     }

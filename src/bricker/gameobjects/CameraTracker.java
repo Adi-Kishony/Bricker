@@ -13,11 +13,11 @@ public class CameraTracker extends GameObject {
     private final Ball mainBall;
     private int numCollisions;
 
-    public CameraTracker(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, BrickerGameManager brickerGameManager, Camera camera) {
+    public CameraTracker(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, BrickerGameManager brickerGameManager, Camera camera, Ball mainBall) {
         super(topLeftCorner, dimensions, renderable);
         this.brickerGameManager = brickerGameManager;
         this.camera = camera;
-        this.mainBall = brickerGameManager.getMainBall();
+        this.mainBall = mainBall;
         this.numCollisions = 0;
     }
 

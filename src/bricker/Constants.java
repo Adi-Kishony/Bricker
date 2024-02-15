@@ -40,4 +40,6 @@ public class Constants {
     public static final String BLOP_SOUND_PATH = "assets/blop_cut_silenced.wav";
     public static final String WIN_MESSAGE = "You Win!";
     public static final String LOSE_MESSAGE = "You Lose!";
+
+    public static final String PLAY_AGAIN_MESSAGE =" Play again?";
 }

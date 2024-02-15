@@ -1,23 +1,35 @@
 package bricker.brick_strategies;
 import bricker.BrickerGameManager;
+import bricker.LivesManager;
+import bricker.gameobjects.Ball;
 import danogl.GameObject;
+import danogl.util.Vector2;
 
 public class DoubleCollisionStrategy implements CollisionStrategy{
     private final BrickerGameManager brickerGameManager;
+    private final Ball mainBall;
+    private final LivesManager livesManager;
+    private final Vector2 windowsDimension;
     private CollisionStrategy strategy1;
     private CollisionStrategy strategy2;
     private static final int MAX_STRATEGIES = 3;
-    public DoubleCollisionStrategy(BrickerGameManager brickerGameManager) {
+    public DoubleCollisionStrategy(BrickerGameManager brickerGameManager, Vector2 windowDimensions,
+                                   Ball mainBall, LivesManager livesManager) {
         this.brickerGameManager = brickerGameManager;
+        this.windowsDimension = windowDimensions;
+        this.mainBall = mainBall;
+        this.livesManager = livesManager;
         initStrategies();
     }
 
     private void initStrategies() {
-        CollisionStrategy randomStrategy1 = brickerGameManager.getRandomCollisionStrategy();
-        CollisionStrategy randomStrategy2 = brickerGameManager.getRandomCollisionStrategy();
+        CollisionStrategiesFactory collisionStrategiesFactory = new CollisionStrategiesFactory(
+                brickerGameManager, windowsDimension, mainBall, livesManager);
+        CollisionStrategy randomStrategy1 = collisionStrategiesFactory.generateCollisionStrategy();
+        CollisionStrategy randomStrategy2 = collisionStrategiesFactory.generateCollisionStrategy();
         while (regularStrategyAmount(strategy1) + regularStrategyAmount(strategy2) > MAX_STRATEGIES) {
-            randomStrategy1 = brickerGameManager.getRandomCollisionStrategy();
-            randomStrategy2 = brickerGameManager.getRandomCollisionStrategy();
+            randomStrategy1 = collisionStrategiesFactory.generateCollisionStrategy();
+            randomStrategy2 = collisionStrategiesFactory.generateCollisionStrategy();
         }
         strategy1 = randomStrategy1;
         strategy2 = randomStrategy2;

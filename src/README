@@ -6,16 +6,14 @@ adikishony, amitavnon
  access.
  ADVANTAGES:
  - In this manner, we maintain encapsulation such that only BrickerGameManager accesses the collection
-   gameObjects(), and in addition, any strategy class that requires addition or removal of gameObjects (or
-   other services) is given a clear API enabling them to do so by using composition of the class
+   gameObjects(),
+ - Any strategy class that requires addition or removal of gameObjects is given a clear API enabling them to
+   do so by using composition of the class
    BrickerGameManager.
- - Also, this design is compatible with the open close principle - the addition of a new
-   strategy solely requires the update of the factory and then the new strategy can use the public API that
-   already exists in the BrickerGameManager
 DISADVANTAGES:
- - In this design each of our strategies uses the composition of the BrickerGameManager class gaining access to
-   all the public API. Not all strategy classes require all these functionalities, for example, access to the
-   game WindowDimensions or to the soundReader, somewhat breaking encapsulation.
+ - In this design each of our strategies uses the composition of the BrickerGameManager class gaining access
+   to all the public API. Not all strategy classes require all these functionalities, for example, access to
+   the game's ImageReader or to the soundReader, somewhat breaking encapsulation.
 
  2. Presentation of lives left in game: In order to display and manage both the numeric and graphic
  representations of the lives in the game we added the following classes:
@@ -87,7 +85,29 @@ DISADVANTAGES:
  what can be thought of as a tree of collision strategies, and if this amount exceeds 3 the strategies are
  randomly selected again until a valid selection is made.
 
- 5.
+ 5. The following functions are our extension of the BrickerGameManager API:
+    - Add/remove gameObject - explained in quesion 1.
+
+     public void removeGameObject(GameObject obj, int layer);
+
+     public void removeGameObject(GameObject obj);
+
+     public void addGameObject(GameObject obj, int layer);
+
+     public void addGameObject(GameObject obj);
+
+     - Getters for InputListener, ImageReader and getSoundReader
+     We noticed that many of our client classes require these services and making them public does not effect
+     the state of the game thus encapsulation is not damaged and the BrickerGameManager is still the sole
+     entity in charge of the state of the game.
+
+     public UserInputListener getInputListener();
+
+     public ImageReader getImageReader();
+
+     public SoundReader getSoundReader();
+
+     -
 
 
 

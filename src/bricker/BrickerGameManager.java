@@ -56,31 +56,20 @@ public class BrickerGameManager extends GameManager{
 
     private void addBricks(Renderable brickImage) {
         CollisionStrategy collisionStrategy;
+        CollisionStrategiesFactory collisionStrategiesFactory = new CollisionStrategiesFactory(
+                this, windowDimensions, mainBall, livesManager);
+
         float brickWidth = windowDimensions.x()/numCols - Constants.PADDING_PIXELS;
         Vector2 brickDims = new Vector2(brickWidth, Constants.BRICK_HEIGHT);
         for (int i = 0; i < numRows; i++){
             for (int j = 0; j < numCols; j++){
-                collisionStrategy = getRandomCollisionStrategy();
+                collisionStrategy = collisionStrategiesFactory.generateCollisionStrategy();
                 Vector2 brickLoc = new Vector2(j*(brickWidth+Constants.PADDING_PIXELS) +
                         Constants.PADDING_PIXELS,i*(Constants.BRICK_HEIGHT+Constants.PADDING_PIXELS)+
                         Constants.PADDING_PIXELS);
                 createBrick(brickImage, collisionStrategy, brickDims, brickLoc);
             }
         }
-    }
-
-    public CollisionStrategy getRandomCollisionStrategy(){
-        Random random = new Random();
-        int randomNumber = random.nextInt(Constants.RANDOM_STRATEGY_RANGE);
-        int strategy;
-        if (randomNumber >= Constants.BASIC_STRATEGY_START_INDEX){
-            strategy = Constants.BASIC_STRATEGY_START_INDEX;
-        }
-        else{
-            strategy = randomNumber;
-        }
-        CollisionStrategiesFactory collisionStrategiesFactory = new CollisionStrategiesFactory(this);
-        return collisionStrategiesFactory.generateCollisionStrategy(BrickStrategyType.values()[strategy]);
     }
 
     private Ball createBall(Renderable ballImage, Vector2 ballDimensions){
@@ -98,7 +87,7 @@ public class BrickerGameManager extends GameManager{
                 new Vector2(Constants.PADDLE_WIDTH, Constants.PADDLE_HEIGHT),
                 paddleImage,
                 inputListener,
-                getWindowDimensions());
+                windowDimensions);
         userPaddle.setCenter(paddleCenter);
         gameObjects().addGameObject(userPaddle);
     }
@@ -184,14 +173,15 @@ public class BrickerGameManager extends GameManager{
             }
             else{
                 livesManager.removeLife();
-                mainBall.reCenterBall(Constants.BALL_SPEED, windowDimensions.mult(Constants.MULTIPLY_FACTOR_HALF));
+                mainBall.reCenterBall(Constants.BALL_SPEED, windowDimensions.mult
+                        (Constants.MULTIPLY_FACTOR_HALF));
             }
         }
         return false;
     }
 
     private void endOfGameUI(String prompt) {
-        prompt += " Play again?";
+        prompt += Constants.PLAY_AGAIN_MESSAGE;
         if (windowController.openYesNoDialog(prompt)) {
             windowController.resetGame();
         } else {
@@ -215,10 +205,6 @@ public class BrickerGameManager extends GameManager{
         gameObjects().addGameObject(obj);
     }
 
-    public Vector2 getWindowDimensions(){
-        return windowDimensions;
-    }
-
     public UserInputListener getInputListener(){
         return inputListener;
     }
@@ -227,14 +213,8 @@ public class BrickerGameManager extends GameManager{
         return imageReader;
     }
 
-    public Ball getMainBall(){return mainBall;}
-
     public SoundReader getSoundReader(){
         return soundReader;
-    }
-
-    public LivesManager getLivesManager(){
-        return livesManager;
     }
 
 
