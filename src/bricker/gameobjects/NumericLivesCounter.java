@@ -5,13 +5,30 @@ import danogl.gui.rendering.TextRenderable;
 import danogl.util.Vector2;
 import java.awt.*;
 
+/**
+ * The NumericLivesCounter class represents a game object that displays the numeric count
+ * of remaining lives in the Bricker game. It extends the danogl.GameObject class and uses
+ * a TextRenderable to render and display the numeric value. The counter dynamically changes
+ * its color based on predefined thresholds for a visual indication of the remaining lives.
+ * The class provides methods for incrementing and decrementing the life count, updating
+ * the display text, and adjusting the color based on the remaining lives.
+ */
 public class NumericLivesCounter extends GameObject {
+    // Constants for color thresholds
     private static final int GREEN_THRESHOLD = 3;
     private static final int YELLOW_THRESHOLD = 2;
     private static final int RED_THRESHOLD = 1;
+
+    // Instance variables
     private int numLives;
     private final TextRenderable textRenderable;
 
+    /**
+     * Constructs a NumericLivesCounter object with the specified parameters.
+     * @param topLeftCorner The top-left corner position of the counter.
+     * @param dimensions    The dimensions of the counter.
+     * @param numLives      The initial number of lives to display.
+     */
     public NumericLivesCounter(Vector2 topLeftCorner, Vector2 dimensions, int numLives) {
         super(topLeftCorner, dimensions, null);
         this.numLives = numLives;
@@ -20,6 +37,10 @@ public class NumericLivesCounter extends GameObject {
         this.renderer().setRenderable(textRenderable);
     }
 
+
+    /**
+     * Sets the color of the text based on the current number of lives.
+     */
     private void setColor() {
         textRenderable.setString(Integer.toString(numLives));
         if (numLives >= GREEN_THRESHOLD) {
@@ -31,14 +52,22 @@ public class NumericLivesCounter extends GameObject {
         }
     }
 
+    /**
+     * Increments the number of lives and updates the display text and color.
+     */
     public void incrementLives() {
         numLives++;
+        // update the graphical numeric counter
         textRenderable.setString(Integer.toString(numLives));
         setColor();
     }
 
+    /**
+     * Decrements the number of lives and updates the display text and color.
+     */
     public void decrementLives() {
         numLives--;
+        // update the graphical numeric counter
         textRenderable.setString(Integer.toString(numLives));
         setColor();
     }
