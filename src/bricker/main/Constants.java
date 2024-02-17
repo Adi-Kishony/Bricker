@@ -186,4 +186,9 @@ public class Constants {
      */
     public static final String BLOP_SOUND_PATH = "assets/blop_cut_silenced.wav";
 
+    private Constants() {
+        // This constructor is private to prevent instantiation of the Constants class.
+        // All members are accessed through static references.
+    }
+
 }
