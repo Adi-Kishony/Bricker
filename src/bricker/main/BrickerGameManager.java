@@ -66,7 +66,8 @@ public class BrickerGameManager extends GameManager {
     private Ball mainBall;
 
     /**
-     * inputListener field represent the input from the user regarding the direction for the paddle's movement.
+     * inputListener field represent the input from the user
+     * regarding the direction for the paddle's movement.
      */
     private UserInputListener inputListener;
 
