@@ -88,6 +88,7 @@ public class BrickerGameManager extends GameManager {
         this.windowDimensions = windowController.getWindowDimensions();
         this.windowController = windowController;
         this.inputListener = inputListener;
+        windowController.setTargetFramerate(80);
 
         // create background
         Renderable bgImage = imageReader.readImage(Constants.BG_IMG_PATH, false);
@@ -108,16 +109,16 @@ public class BrickerGameManager extends GameManager {
         // create walls
         createWalls();
 
-        //add bricks
-        Renderable brickImage = imageReader.readImage(Constants.BRICK_IMG_PATH, false);
-        addBricks(brickImage);
-
         //add remaining lives graphics
         Renderable heartImage = imageReader.readImage(Constants.HEART_IMG_PATH, true);
         this.livesManager = new LivesManager(new Vector2(Constants.LIVES_START_PIXEL, windowDimensions.y()
                 - Constants.DISTANCE_FROM_BOTTOM),
                 new Vector2(Constants.HEART_DIMENSIONS, Constants.HEART_DIMENSIONS),
                 heartImage, Constants.INITIAL_NUM_LIVES, this);
+
+        //add bricks
+        Renderable brickImage = imageReader.readImage(Constants.BRICK_IMG_PATH, false);
+        addBricks(brickImage);
     }
 
     @Override

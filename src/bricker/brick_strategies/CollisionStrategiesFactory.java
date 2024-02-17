@@ -63,7 +63,6 @@ public class CollisionStrategiesFactory {
                 collisionStrategy = new BasicCollisionStrategy(brickerGameManager);
                 break;
         }
-        System.out.println(strategyType);
         return collisionStrategy;
     }
 }
