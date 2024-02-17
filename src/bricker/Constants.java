@@ -8,8 +8,8 @@ package bricker;
 public class Constants {
 
     // Game's Board dimensions
-    public static final int BOARD_GAME_WIDTH = 800;
-    public  static  final int BOARD_GAME_HIGH = 700;
+    public static final int BOARD_GAME_WIDTH = 500;
+    public  static  final int BOARD_GAME_HIGH = 500;
 
     // Expected command-line arguments length
     public static  final int EXPECTED_ARGS_LEN = 2;

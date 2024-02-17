@@ -10,15 +10,34 @@ import danogl.gui.Sound;
 import danogl.gui.rendering.Renderable;
 import danogl.util.Vector2;
 import java.util.Random;
-
+/**
+ * A collision strategy that adds additional Puck balls to the game when a collision with a brick occurs.
+ * Each collision triggers the creation of two Puck balls at the location of the collided brick.
+ */
 public class AddBallsCollisionStrategy extends BasicCollisionStrategy implements CollisionStrategy {
 
+    /**
+     * The ratio by which the dimensions of the Puck ball are scaled in comparison to the main ball.
+     */
     private static final float PUCK_BALL_SIZE_RATIO = 0.75f;
 
+    /**
+     * The dimensions of the game window.
+     */
     private final Vector2 windowDimensions;
 
+    /**
+     * The main ball associated with the game.
+     */
     private final Ball mainBall;
 
+    /**
+     * Constructs an AddBallsCollisionStrategy with the specified parameters.
+     *
+     * @param brickerGameManager The BrickerGameManager associated with this collision strategy.
+     * @param windowDimensions   The dimensions of the game window.
+     * @param mainBall           The main ball associated with the game.
+     */
     public AddBallsCollisionStrategy(BrickerGameManager brickerGameManager, Vector2 windowDimensions,
                                      Ball mainBall) {
         super(brickerGameManager);
@@ -26,6 +45,14 @@ public class AddBallsCollisionStrategy extends BasicCollisionStrategy implements
         this.mainBall = mainBall;
     }
 
+    /**
+     * Creates a new Puck ball with the specified image, dimensions, and location.
+     * The Puck ball is given a random initial velocity.
+     *
+     * @param imageReader    The ImageReader used to load the Puck ball image.
+     * @param ballDimensions The dimensions of the Puck ball.
+     * @param ballLoc        The initial location of the Puck ball.
+     */
     private void createPuckBall(ImageReader imageReader, Vector2 ballDimensions, Vector2 ballLoc) {
         Random rand = new Random();
         Renderable puckBallImage = imageReader.readImage(Constants.PUCK_IMG_PATH, true);
@@ -40,6 +67,11 @@ public class AddBallsCollisionStrategy extends BasicCollisionStrategy implements
         brickerGameManager.addGameObject(puckBall);
     }
 
+    /**
+     * Checks and removes a Puck ball if it goes beyond the game window's height.
+     *
+     * @param puckBall The Puck ball to check and remove if necessary.
+     */
     public void removeCheckPuck(Puck puckBall) {
         float ballHeight = puckBall.getCenter().y();
         if (ballHeight > windowDimensions.y()) {
@@ -47,6 +79,13 @@ public class AddBallsCollisionStrategy extends BasicCollisionStrategy implements
         }
     }
 
+    /**
+     * Executes the AddBallsCollisionStrategy, creating two Puck balls at the location of the collided brick
+     * when a collision occurs with the main ball.
+     *
+     * @param obj1 The first game object involved in the collision (to be removed).
+     * @param obj2 The second game object involved in the collision.
+     */
     @Override
     public void onCollision(GameObject obj1, GameObject obj2) {
         super.onCollision(obj1, obj2);
