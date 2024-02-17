@@ -16,11 +16,18 @@ import java.util.Random;
  * to be recentered with a randomized velocity. It is associated with a specific tag "Ball."
  */
 public class Ball extends GameObject {
-    // Constants
+    /**
+     * BALL_TAG constant represent the ball's tag.
+     */
     public static final String BALL_TAG = "Ball";
 
-    // Instance variables
+    /**
+     * collisionSound field represent the ball's sound.
+     */
     protected Sound collisionSound;
+    /**
+     * collisionCounter field counts the ball's collisions.
+     */
     private final Counter collisionCounter;
 
     /**
