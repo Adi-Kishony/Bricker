@@ -1,6 +1,6 @@
 package bricker.brick_strategies;
 
-import bricker.BrickerGameManager;
+import bricker.main.BrickerGameManager;
 import bricker.gameobjects.Ball;
 import bricker.gameobjects.CameraTracker;
 import danogl.GameObject;

@@ -1,4 +1,4 @@
-package bricker;
+package bricker.main;
 
 /**
  * The Constants class contains static final variables that define various constant values

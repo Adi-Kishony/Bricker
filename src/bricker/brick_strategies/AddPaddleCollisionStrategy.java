@@ -1,7 +1,7 @@
 package bricker.brick_strategies;
 
-import bricker.BrickerGameManager;
-import bricker.Constants;
+import bricker.main.BrickerGameManager;
+import bricker.main.Constants;
 import bricker.gameobjects.SecondPaddle;
 import danogl.GameObject;
 import danogl.gui.rendering.Renderable;

@@ -1,4 +1,4 @@
-package bricker;
+package bricker.main;
 
 import bricker.brick_strategies.CollisionStrategiesFactory;
 import bricker.brick_strategies.CollisionStrategy;
@@ -33,7 +33,8 @@ public class BrickerGameManager extends GameManager {
     private UserInputListener inputListener;
 
     /**
-     * Constructs a BrickerGameManager with specified window title, dimensions, number of rows, and number of columns.
+     * Constructs a BrickerGameManager with specified window title, dimensions, number of rows, and number of
+     * columns.
      *
      * @param windowTitle      The title of the game window.
      * @param windowDimensions The dimensions of the game window.
@@ -284,7 +285,8 @@ public class BrickerGameManager extends GameManager {
 
     /**
      * Checks if the game has been lost based on the current position of the ball and the remaining lives.
-     * If the ball goes below the game window's height and there are no remaining lives, the game is considered lost.
+     * If the ball goes below the game window's height and there are no remaining lives, the game is
+     * considered lost.
      * If there are remaining lives, one life is deducted, and the ball is recentered for the next attempt.
      *
      * @return True if the game is lost, false otherwise.

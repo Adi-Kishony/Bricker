@@ -1,8 +1,8 @@
 package bricker.brick_strategies;
 
-import bricker.BrickerGameManager;
-import bricker.Constants;
-import bricker.LivesManager;
+import bricker.main.BrickerGameManager;
+import bricker.main.Constants;
+import bricker.main.LivesManager;
 import bricker.gameobjects.Ball;
 import danogl.util.Vector2;
 

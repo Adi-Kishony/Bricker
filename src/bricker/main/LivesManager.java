@@ -1,4 +1,4 @@
-package bricker;
+package bricker.main;
 
 import bricker.gameobjects.Heart;
 import bricker.gameobjects.NumericLivesCounter;
@@ -43,7 +43,8 @@ public class LivesManager {
         this.dimensionsOfOneHeart = dimensionsOfOneHeart;
         this.renderable = renderable;
         this.numericLivesCounter = new NumericLivesCounter(new Vector2(topLeftCornerOfLivesPanel.x(),
-                topLeftCornerOfLivesPanel.y() - Constants.HEART_PADDING), dimensionsOfOneHeart, initialNumLives);
+                topLeftCornerOfLivesPanel.y() - Constants.HEART_PADDING), dimensionsOfOneHeart,
+                initialNumLives);
 
         // add the numericLivesCounter to the game objects
         this.brickerGameManager.addGameObject(this.numericLivesCounter, Layer.BACKGROUND);
