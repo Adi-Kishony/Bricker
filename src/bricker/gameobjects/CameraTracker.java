@@ -13,13 +13,31 @@ import danogl.util.Vector2;
  * The class interacts with the BrickerGameManager, Camera, and Ball to manage the camera's behavior.
  */
 public class CameraTracker extends GameObject {
-    // Constants
+
+    /**
+     * MAX_BALL_COLLISIONS constant represent maximum allowed collisions of the ball
+     * at the time when the camera is on.
+     */
     private static final int MAX_BALL_COLLISIONS = 4;
 
-    // Instance variables
+    /**
+     * brickerGameManager field represent the bricker Game Manager.
+     */
     private final BrickerGameManager brickerGameManager;
+
+    /**
+     * camera field represent the current camera of the game.
+     */
     private final Camera camera;
+
+    /**
+     * mainBall field represent the main ball of the game.
+     */
     private final Ball mainBall;
+
+    /**
+     * numCollisions field enable to count the collision of the ball since the camera eas turned on.
+     */
     private int numCollisions;
 
     /**
@@ -48,7 +66,7 @@ public class CameraTracker extends GameObject {
         brickerGameManager.setCamera(camera);
         // instruct the camera to follow the ball
         brickerGameManager.camera().setToFollow(ball, Vector2.ZERO);
-        numCollisions = mainBall.getCollisionCounter().value();
+        numCollisions = mainBall.getCollisionCounter();
     }
 
     /**
@@ -67,7 +85,7 @@ public class CameraTracker extends GameObject {
         // if the camera is on
         if (brickerGameManager.camera() != null) {
             // if since the camera was turned on 4 collision were made
-            if (mainBall.getCollisionCounter().value() - numCollisions == MAX_BALL_COLLISIONS) {
+            if (mainBall.getCollisionCounter() - numCollisions == MAX_BALL_COLLISIONS) {
                 // set the camera off
                 setCameraOff();
             }

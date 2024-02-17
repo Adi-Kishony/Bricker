@@ -20,16 +20,55 @@ import java.awt.event.KeyEvent;
  * The main class for the Bricker game, extending GameManager.
  */
 public class BrickerGameManager extends GameManager {
-    // Instance variables for game settings
+
+    /**
+     * numRows field represent the number of rows of the bricks.
+     */
     private final int numRows;
+
+    /**
+     * numCols field represent the number of cols of the bricks.
+     */
     private final int numCols;
+
+    /**
+     * windowDimensions field represent dimensions of the game's window.
+     */
     private Vector2 windowDimensions;
+
+    /**
+     * bricksLeft field represent the number of the left bricks on the game.
+     */
     private Counter bricksLeft;
+
+    /**
+     * imageReader field represent image reader.
+     */
     private ImageReader imageReader;
+
+    /**
+     * livesManager field represent the lives manger of the game.
+     */
     private LivesManager livesManager;
+
+    /**
+     * soundReader field represent the sound of the ball's collisions.
+     */
     private SoundReader soundReader;
+
+    /**
+     * windowController field represent the window controller.
+     */
     private WindowController windowController;
+
+    /**
+     * mainBall field represent the main ball of the game.
+     */
     private Ball mainBall;
+
+    /**
+     * inputListener field represent the input from the user regarding the direction for the paddle's movement.
+     */
     private UserInputListener inputListener;
 
     /**

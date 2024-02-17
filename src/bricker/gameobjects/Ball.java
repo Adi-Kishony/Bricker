@@ -4,7 +4,6 @@ import danogl.GameObject;
 import danogl.collisions.Collision;
 import danogl.gui.Sound;
 import danogl.gui.rendering.Renderable;
-import danogl.util.Counter;
 import danogl.util.Vector2;
 
 import java.util.Random;
@@ -16,12 +15,21 @@ import java.util.Random;
  * to be recentered with a randomized velocity. It is associated with a specific tag "Ball."
  */
 public class Ball extends GameObject {
-    // Constants
+
+    /**
+     * BALL_TAG constant represent the ball's tag.
+     */
     public static final String BALL_TAG = "Ball";
 
-    // Instance variables
+    /**
+     * collisionSound field represent the ball's sound.
+     */
     protected Sound collisionSound;
-    private final Counter collisionCounter;
+
+    /**
+     * collisionCounter field counts the ball's collisions.
+     */
+    private int collisionCounter;
 
     /**
      * Constructs a Ball object with the specified parameters.
@@ -33,7 +41,7 @@ public class Ball extends GameObject {
     public Ball(Vector2 topLeftCorner, Vector2 dimensions, Renderable renderable, Sound collisionSound) {
         super(topLeftCorner, dimensions, renderable);
         this.collisionSound = collisionSound;
-        this.collisionCounter = new Counter(0);
+        this.collisionCounter = 0;
     }
 
     /**
@@ -48,7 +56,7 @@ public class Ball extends GameObject {
         Vector2 newVel = getVelocity().flipped(collision.getNormal());
         setVelocity(newVel);
         // counting the collision of the ball
-        collisionCounter.increment();
+        collisionCounter ++;
         // play the collision sound
         collisionSound.play();
     }
@@ -57,7 +65,7 @@ public class Ball extends GameObject {
      * Gets the collision counter associated with the ball.
      * @return The collision counter.
      */
-    public Counter getCollisionCounter() {
+    public int getCollisionCounter() {
         return collisionCounter;
     }
 

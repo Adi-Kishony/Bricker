@@ -16,12 +16,25 @@ import java.awt.event.KeyEvent;
  * velocity accordingly.
  */
 public class Paddle extends GameObject {
-    // Constants
+
+    /**
+     * PADDLE_TAG constant represent the paddle's tag.
+     */
     public static final String PADDLE_TAG = "Paddle";
+
+    /**
+     * MOVEMENT_SPEED constant represent the speed of the paddle.
+     */
     private static final float MOVEMENT_SPEED = 300;
 
-    // Instance variables
+    /**
+     * inputListener field represent input from the player regarding the direction for moving the paddle.
+     */
     private final UserInputListener inputListener;
+
+    /**
+     * windowDimensions field represent the dimensions of the game's board.
+     */
     private final Vector2 windowDimensions;
 
     /**

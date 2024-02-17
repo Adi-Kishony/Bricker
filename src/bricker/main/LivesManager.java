@@ -15,14 +15,45 @@ import danogl.util.Vector2;
  * elements for lives and updates the game state accordingly.
  */
 public class LivesManager {
-    // Instance variables
+
+    /**
+     * initialNumLives field represent the initial number of lives in the game.
+     */
     private final int initialNumLives;
+
+    /**
+     * brickerGameManager field represent the bricker game manager.
+     */
     private final BrickerGameManager brickerGameManager;
+
+    /**
+     * hearts field represent an array of the graphical non-dynamic hearts in the game.
+     */
     private final Heart[] hearts;
+
+    /**
+     * dimensionsOfOneHeart field represent the dimensions of single heart in the game.
+     */
     private final Vector2 dimensionsOfOneHeart;
+
+    /**
+     * topLeftCornerOfLivesPanel field represent the top left corner of the non-dynamic lives panel.
+     */
     private final Vector2 topLeftCornerOfLivesPanel;
+
+    /**
+     * renderable field represent the renderer image for hearts.
+     */
     private final Renderable renderable;
+
+    /**
+     * currentLives field represent the current number of lives left in the game.
+     */
     private int currentLives;
+
+    /**
+     * numericLivesCounter field represent the numeric lives counter.
+     */
     private final NumericLivesCounter numericLivesCounter;
 
     /**

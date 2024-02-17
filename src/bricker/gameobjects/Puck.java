@@ -12,10 +12,15 @@ import danogl.util.Vector2;
  * includes a call to the creator's method for checking whether to remove the puck or not.
  */
 public class Puck extends Ball {
-    // Constants
+
+    /**
+     * PUCK_TAG constant represent the puck ball's tag.
+     */
     private static final String PUCK_TAG = "Puck";
 
-    // Instance variable
+    /**
+     * myCreator field represent strategy that created this puck ball.
+     */
     private final AddBallsCollisionStrategy myCreator;
 
     /**

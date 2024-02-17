@@ -14,13 +14,30 @@ import java.awt.*;
  * the display text, and adjusting the color based on the remaining lives.
  */
 public class NumericLivesCounter extends GameObject {
-    // Constants for color thresholds
+
+    /**
+     * GREEN_THRESHOLD constant represent the green color threshold.
+     */
     private static final int GREEN_THRESHOLD = 3;
+
+    /**
+     * YELLOW_THRESHOLD constant represent the yellow color threshold.
+     */
     private static final int YELLOW_THRESHOLD = 2;
+
+    /**
+     * RED_THRESHOLD constant represent the red color threshold.
+     */
     private static final int RED_THRESHOLD = 1;
 
-    // Instance variables
+    /**
+     * numLives field counts the current lives in the game.
+     */
     private int numLives;
+
+    /**
+     * textRenderable field enable to display the numeric counter on the screen.
+     */
     private final TextRenderable textRenderable;
 
     /**

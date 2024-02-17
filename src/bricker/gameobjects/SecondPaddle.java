@@ -16,12 +16,24 @@ import danogl.util.Vector2;
  */
 public class SecondPaddle extends Paddle {
 
-    // Constants
+    /**
+     * SECOND_PADDLE_TAG constant represent the second paddle's tag.
+     */
     private static final String SECOND_PADDLE_TAG = "extra paddle";
+
+    /**
+     * MAX_COLLISIONS constant represent the maximum allowed collisions of the second paddle.
+     */
     private static final int MAX_COLLISIONS = 4;
 
-    // Instance variables
+    /**
+     * myCreator field represent the strategy that created this second paddle.
+     */
     private final AddPaddleCollisionStrategy myCreator;
+
+    /**
+     * collisionCounter field counts the collisions of this second paddle.
+     */
     private int collisionCounter;
 
     /**

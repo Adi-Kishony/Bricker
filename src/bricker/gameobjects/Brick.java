@@ -17,8 +17,14 @@ import danogl.util.Vector2;
  */
 public class Brick extends GameObject {
 
-    // Instance variables
+    /**
+     * bricksLeft field counts the bricks that left in each delta time in the game.
+     */
     private final Counter bricksLeft;
+
+    /**
+     * collisionStrategy field represents the collision strategy of this brick.
+     */
     private final CollisionStrategy collisionStrategy;
 
     /**

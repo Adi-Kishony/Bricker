@@ -17,7 +17,9 @@ import danogl.util.Vector2;
  */
 public class Heart extends GameObject {
 
-    // Instance variable
+    /**
+     * myCreator field represent the strategy that created the current heart (only if it is a dynamic heart).
+     */
     private final AddLifeCollisionStrategy myCreator;
 
     /**
