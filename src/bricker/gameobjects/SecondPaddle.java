@@ -15,7 +15,6 @@ import danogl.util.Vector2;
  * balls.
  */
 public class SecondPaddle extends Paddle {
-
     /**
      * SECOND_PADDLE_TAG constant represent the second paddle's tag.
      */
@@ -60,7 +59,7 @@ public class SecondPaddle extends Paddle {
     @Override
     public void onCollisionEnter(GameObject other, Collision collision) {
         super.onCollisionEnter(other, collision);
-        if (other instanceof Ball){
+        if (other instanceof Ball) {
             collisionCounter ++;
             // check if the collisions of the second paddle exceeded the maximum collisions amount
             if (collisionCounter >= MAX_COLLISIONS){

@@ -16,7 +16,6 @@ import java.awt.event.KeyEvent;
  * velocity accordingly.
  */
 public class Paddle extends GameObject {
-
     /**
      * PADDLE_TAG constant represent the paddle's tag.
      */

@@ -14,7 +14,6 @@ import java.awt.*;
  * the display text, and adjusting the color based on the remaining lives.
  */
 public class NumericLivesCounter extends GameObject {
-
     /**
      * GREEN_THRESHOLD constant represent the green color threshold.
      */

@@ -15,7 +15,6 @@ import java.util.Random;
  * to be recentered with a randomized velocity. It is associated with a specific tag "Ball."
  */
 public class Ball extends GameObject {
-
     /**
      * BALL_TAG constant represent the ball's tag.
      */

@@ -15,7 +15,6 @@ import danogl.util.Vector2;
  * elements for lives and updates the game state accordingly.
  */
 public class LivesManager {
-
     /**
      * initialNumLives field represent the initial number of lives in the game.
      */

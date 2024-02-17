@@ -13,7 +13,6 @@ import danogl.util.Vector2;
  * The class interacts with the BrickerGameManager, Camera, and Ball to manage the camera's behavior.
  */
 public class CameraTracker extends GameObject {
-
     /**
      * MAX_BALL_COLLISIONS constant represent maximum allowed collisions of the ball
      * at the time when the camera is on.

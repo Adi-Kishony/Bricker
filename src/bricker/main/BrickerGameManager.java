@@ -20,7 +20,6 @@ import java.awt.event.KeyEvent;
  * The main class for the Bricker game, extending GameManager.
  */
 public class BrickerGameManager extends GameManager {
-
     /**
      * numRows field represent the number of rows of the bricks.
      */

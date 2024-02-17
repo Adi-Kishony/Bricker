@@ -16,7 +16,6 @@ import danogl.util.Vector2;
  * if the heart is out of bounds.
  */
 public class Heart extends GameObject {
-
     /**
      * myCreator field represent the strategy that created the current heart (only if it is a dynamic heart).
      */

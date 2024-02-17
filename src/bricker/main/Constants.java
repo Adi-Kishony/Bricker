@@ -6,7 +6,6 @@ package bricker.main;
  * paths to asset files, and messages displayed during the game.
  */
 public class Constants {
-
     /**
      * BOARD_GAME_WIDTH constant represent the game's Board width.
      */
@@ -79,7 +78,8 @@ public class Constants {
     public static  final int BRICK_HEIGHT = 15;
 
     /**
-     * NUM_ROWS_OF_BRICKS constant represent the numbers of the bricks rows.
+     * NUM_ROWS_OF_BRICKS constant represent
+     * the numbers of the bricks rows.
      */
     public static final int NUM_ROWS_OF_BRICKS = 7;
 
@@ -94,7 +94,8 @@ public class Constants {
     public static final int PADDING_PIXELS = 3;
 
     /**
-     *  DIST_FROM_EDGE_OF_DISPLAY constant represent the distance of the main paddle from the bottom of the game board.
+     *  DIST_FROM_EDGE_OF_DISPLAY constant represent
+     *  the distance of the main paddle from the bottom of the game board.
      */
     public static final int DIST_FROM_EDGE_OF_DISPLAY = 50;
 
@@ -119,8 +120,8 @@ public class Constants {
     public static final int MAX_NUM_LIVES = 4;
 
     /**
-     * DISTANCE_FROM_BOTTOM constant represent the distance of the graphical hearts which are not dynamic
-     * from the bottom of the screen.
+     * DISTANCE_FROM_BOTTOM constant represent the distance of the graphical hearts
+     * which are not dynamic from the bottom of the screen.
      */
     public static final int DISTANCE_FROM_BOTTOM = 30;
 
@@ -145,7 +146,8 @@ public class Constants {
     public static final String LOSE_MESSAGE = "You Lose!";
 
     /**
-     * PLAY_AGAIN_MESSAGE constant represent the message for asking the player if he wants to play again.
+     * PLAY_AGAIN_MESSAGE constant represent the message
+     * for asking the player if he wants to play again.
      */
     public static final String PLAY_AGAIN_MESSAGE =" Play again?";
 

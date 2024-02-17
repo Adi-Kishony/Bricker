@@ -12,7 +12,6 @@ import danogl.util.Vector2;
  * includes a call to the creator's method for checking whether to remove the puck or not.
  */
 public class Puck extends Ball {
-
     /**
      * PUCK_TAG constant represent the puck ball's tag.
      */

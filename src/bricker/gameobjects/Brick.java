@@ -16,7 +16,6 @@ import danogl.util.Vector2;
  * and the collision strategy's onCollision method is called.
  */
 public class Brick extends GameObject {
-
     /**
      * bricksLeft field counts the bricks that left in each delta time in the game.
      */
