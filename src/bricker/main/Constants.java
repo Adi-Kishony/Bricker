@@ -27,16 +27,6 @@ public class Constants {
     public static final float MULTIPLY_FACTOR_HALF = 0.5f;
 
     /**
-     * LAST_LIFE_NUMBER constant represent the last life numbers.
-     */
-    public static final  int LAST_LIFE_NUMBER = 1;
-
-    /**
-     * LAST_BRICK_NUMBER constant represent the last brick numbers.
-     */
-    public static final int LAST_BRICK_NUMBER = 1;
-
-    /**
      * BASIC_STRATEGY_START_INDEX constant represent the collision strategy indices.
      */
     public static final int BASIC_STRATEGY_START_INDEX = 5;

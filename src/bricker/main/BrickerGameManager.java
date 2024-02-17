@@ -318,7 +318,7 @@ public class BrickerGameManager extends GameManager {
      * @return True if the game is won, false otherwise.
      */
     private boolean gameWon() {
-        return bricksLeft.value() < Constants.LAST_BRICK_NUMBER;
+        return (bricksLeft.value() == 0);
     }
 
 
@@ -337,9 +337,8 @@ public class BrickerGameManager extends GameManager {
         // Check if the ball is below the game window's height
         if (ballHeight > windowController.getWindowDimensions().y()) {
             // Check if there are no remaining lives
-            if (livesManager.getCurrentLives() <= Constants.LAST_LIFE_NUMBER) {
+            if (livesManager.getCurrentLives() == 0) {
                 // No more lives, end the game
-                livesManager.removeLife();
                 return true;
             } else {
                 // Deduct one life and recenter the ball for the next attempt
@@ -348,7 +347,6 @@ public class BrickerGameManager extends GameManager {
                         (Constants.MULTIPLY_FACTOR_HALF));
             }
         }
-
         // The game is not lost
         return false;
     }
