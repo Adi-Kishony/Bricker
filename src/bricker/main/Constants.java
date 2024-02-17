@@ -32,6 +32,10 @@ public class Constants {
     public static final int BASIC_STRATEGY_START_INDEX = 5;
 
     /**
+     * LAST_LIFE_NUMBER constant represent the last life numbers.
+     */
+    public static final  int LAST_LIFE_NUMBER = 1;
+    /**
      * RANDOM_STRATEGY_RANGE constant represent the collision strategy range.
      */
     public static final int RANDOM_STRATEGY_RANGE = 10;

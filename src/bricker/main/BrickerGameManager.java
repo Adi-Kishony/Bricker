@@ -337,7 +337,7 @@ public class BrickerGameManager extends GameManager {
         // Check if the ball is below the game window's height
         if (ballHeight > windowController.getWindowDimensions().y()) {
             // Check if there are no remaining lives
-            if (livesManager.getCurrentLives() == 0) {
+            if (livesManager.getCurrentLives() == Constants.LAST_LIFE_NUMBER) {
                 // No more lives, end the game
                 return true;
             } else {
